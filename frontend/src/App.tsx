@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import Navigation from "./ui/Navigation";
 import Search from "./ui/Search";
 import Discover from "./ui/Discover";
+import Player from "./ui/Player";
 
 function App() {
 	return (
@@ -13,6 +14,7 @@ function App() {
 			<Navigation />
 			<Search />
 			<Discover />
+			<Player />
 		</div>
 	);
 }
