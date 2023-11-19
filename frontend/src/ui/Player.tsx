@@ -2,17 +2,23 @@ import { Card } from "@/components/ui/card";
 import { useQuery } from "react-query";
 import { API_URL } from "@/helpers/endpoints";
 import { AnimatePresence, motion } from "framer-motion";
+
 const Player = () => {
 	const { data, isLoading } = useQuery(
 		"getSong",
+
 		async () => {
 			const res = await fetch(`${API_URL}/getCurrentTrack.php`);
 			return res.json();
 		},
-		{ refetchInterval: 10500 },
+		{ refetchInterval: 10500, refetchIntervalInBackground: true },
 	);
 
 	if (isLoading) {
+		return null;
+	}
+
+	if (!data?.item) {
 		return null;
 	}
 
@@ -58,7 +64,7 @@ const Player = () => {
 					animate={{ bottom: 0, display: "block", opacity: 1 }}
 					transition={{ duration: 0.3 }}
 					exit={{ bottom: "-20%", display: "none", opacity: 0 }}
-					className="absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/3  w-11/12 rounded-xl shadow-sm"
+					className="absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/3  w-11/12 lg:w-2/5 rounded-xl shadow-sm"
 				>
 					<Card
 						className=" bg-neutral-800 border-0 text-white  rounded-xl "

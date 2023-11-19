@@ -42,7 +42,7 @@ const CardSlider = () => {
 
 const GenreCard = ({ title, description, imageUrl }: { title: string; description: string; imageUrl: string }) => {
 	return (
-		<Card className="w-3/6 h-[15rem] relative overflow-clip border-0 bg-neutral-800 rounded-3xl flex-none mb-8">
+		<Card className="w-3/6 lg:w-1/6 h-[15rem] relative overflow-clip border-0 bg-neutral-800 rounded-3xl flex-none mb-8">
 			<div className="absolute flex radial-bg  backdrop-blur-[1px] text-white w-full h-48 font-bold justify-center items-center rounded-b-3xl">
 				<div className="text-lg   ">{title}</div>
 			</div>

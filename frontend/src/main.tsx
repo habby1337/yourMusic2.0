@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import "./index.css";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([{ path: "/:isLogin?", Component: App }]);
