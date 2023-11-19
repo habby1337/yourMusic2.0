@@ -76,4 +76,8 @@
 		@apply bg-background text-foreground dark:bg-neutral-900 dark:text-neutral-100;
 		font-family: "Source Sans 3", sans-serif;
 	}
+	.radial-bg {
+		background: rgb(71, 85, 105);
+		background: radial-gradient(circle, rgba(71, 85, 105, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
+	}
 }
