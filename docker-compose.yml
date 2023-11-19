@@ -16,8 +16,8 @@ services:
     environment:
       - spotify_client_id=f360435b0be741a59853a9c642c79f36
       - spotify_client_secret=198d91c1cda043ab9852099d809306e4
-      # - spotify_redirect_uri=http://sp.tensi.dev:8010/api/v1/callback.php
       - spotify_redirect_uri=http://localhost:8010/api/v1/callback.php
+      - homepage_url=http://localhost:5173
 
   frontend:
     container_name: yourMusic-Frontend
