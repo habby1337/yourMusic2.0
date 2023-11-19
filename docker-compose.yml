@@ -1,0 +1,38 @@
+version: "1"
+
+services:
+  backend:
+    container_name: yourMusic-Backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8010:80"
+    volumes:
+      - ./backend:/var/www/html
+    networks:
+      - backend
+      - frontend
+    environment:
+      - spotify_client_id=f360435b0be741a59853a9c642c79f36
+      - spotify_client_secret=198d91c1cda043ab9852099d809306e4
+      # - spotify_redirect_uri=http://sp.tensi.dev:8010/api/v1/callback.php
+      - spotify_redirect_uri=http://localhost:8010/api/v1/callback.php
+
+  frontend:
+    container_name: yourMusic-Frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:3000"
+    volumes:
+      - ./frontend:/app
+    networks:
+      - frontend
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
