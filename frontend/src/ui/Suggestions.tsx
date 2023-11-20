@@ -5,8 +5,8 @@ import { track } from "@/helpers/types";
 const Suggestions = () => {
 	return (
 		<div>
-			<h4 className="mb-3 font-semibold">Suggestions for you</h4>
-			<div className="max-h-[60vh] overflow-scroll">
+			<h4 className="mb-4 font-semibold">Suggestions for you</h4>
+			<div className="max-h-[30vh] overflow-scroll">
 				<SuggestionCards />
 			</div>
 		</div>

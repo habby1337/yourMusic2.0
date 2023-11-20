@@ -11,7 +11,7 @@ import Suggestions from "./ui/Suggestions";
 
 function App() {
 	return (
-		<div className="container p-4 pt-6">
+		<div className="container p-4 h-screen w-screen  overflow-y-hidden">
 			<Navigation />
 			<SearchForm />
 			<Discover />

@@ -1,9 +1,13 @@
 import { Card } from "@/components/ui/card";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { API_URL } from "@/helpers/endpoints";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useAnimate } from "framer-motion";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 const Player = () => {
+	const [showPlayer, setShowPlayer] = useState(true);
+	const [scope, animate] = useAnimate();
 	const { data, isLoading } = useQuery(
 		"getSong",
 
@@ -14,6 +18,11 @@ const Player = () => {
 		{ refetchInterval: 10000, refetchIntervalInBackground: true },
 	);
 
+	useEffect(() => {
+		if (!data?.is_playing) return;
+		if (!showPlayer) animate(scope.current, { x: 0, y: 70, display: "block", opacity: 0.5 });
+		else animate(scope.current, { x: 0, y: 0, display: "block", opacity: 1 });
+	}, [showPlayer]);
 	// 10500
 
 	if (isLoading) {
@@ -62,17 +71,22 @@ const Player = () => {
 			{isPlaying && (
 				<motion.div
 					// animate sliding from bottom to top
-					initial={{ bottom: "-20%", display: "none", opacity: 0 }}
+					initial={{ bottom: "-5%", opacity: 0 }}
 					animate={{ bottom: 0, display: "block", opacity: 1 }}
 					transition={{ duration: 0.3 }}
-					exit={{ bottom: "-20%", display: "none", opacity: 0 }}
-					className=" sticky bottom-0 left-0 right-0  mx-auto transform  -translate-y-1/3  w-11/12 lg:w-2/5 rounded-xl shadow-sm"
+					exit={{ bottom: "-5%", opacity: 0 }}
+					ref={scope}
+					className=" sticky bottom-0 left-0 right-0  mx-auto transform    w-11/12 lg:w-2/5 rounded-xl shadow-sm"
 				>
 					<Card
 						className=" bg-neutral-800 border-0 text-white  rounded-xl  "
 						style={{ backgroundImage: `url(${albumImage})` }}
 					>
 						<div className="backdrop-blur-3xl  w-full h-full rounded-xl p-3 backdrop-brightness-50 ">
+							<div className="absolute top-1 right-2">
+								{showPlayer && <ChevronDown size={30} strokeWidth={3} onClick={() => setShowPlayer(!showPlayer)} />}
+								{!showPlayer && <ChevronUp size={30} strokeWidth={3} onClick={() => setShowPlayer(!showPlayer)} />}
+							</div>
 							<div className="flex items-center justify-between ">
 								<div className="flex items-center gap-5">
 									{/* if isPlaying true animate the image */}
