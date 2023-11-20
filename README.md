@@ -13,11 +13,16 @@ A better interface for your Spotify library. Built with React and the Spotify AP
 ### 0.2 Why doing it again?
 So, I looked at the original project UI and i thought, 'Hmm, this needs a makeover'. So i decided it's time to pimp up the project's interface, make it more modern and more user friendly. I also added some new features that i thought would be cool to have, like, i'm not kidding, i've added more features than a Swiss Army knife on steroids. It's like the original project was using stone tools.
 
+# 1. How do i run it?
 
 ## 1. Setup
+### 1.1 Prerequisites
+- Got to the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications) and create a new app.
+
+### 1.2 Configuration
 `docker-compose.yml` is included for easy setup. You can also run the app locally by running `npm install` and `npm start` in both the `client` and `server` directories.
 
-### 1.2 What to change
+#### What to change
 - Change the `docker-compose.yml` file to include your own spotify client id and secret. You can get these by creating a new app on the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications).
 - Also change the `spotify_redirect_uri` to your own redirect uri. This can be anything you want, but it has to be the same as the redirect uri you set in the Spotify Developer Dashboard.
 - The `homepage_url` is used to redirect to the homepage from the php file.
@@ -25,8 +30,14 @@ you can find what i'm talking about in the `backend/api/v1/callback.php` line **
 - Change in the `frontend/.env` the `VITE_API_URL` to the backend url.
 
 
-### 1.3 Running the app
+### 1.4 Running the app
 - Run `docker-compose up` in the root directory to start the app.   
+
+### 1.5 Authentication
+Go to `https:YourBeautifulApiEndpoint.com/auth.php` in the browser and login with the account you want to use. (this is the one who gets the song in queue)
+
+### 1.6 Enjoy
+Go to `https:YourBeautifulApiEndpoint.com` and enjoy the app. (every one can use it and add songs to the queue)   
 
 <hr/>
 
