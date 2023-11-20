@@ -5,7 +5,7 @@ const Navigation = () => {
 		<div className="flex text-left gap-2">
 			<div>
 				<Avatar className="h-12 w-12">
-					<AvatarImage src="https://www.myneonclub.com/cdn/shop/products/34d31ce7dc5d93bc4c6b3f74ff7ad29a_600x.jpg?v=1639506883" />
+					<AvatarImage src="https://e1.pngegg.com/pngimages/532/220/png-clipart-spotify-for-macos-spotify-logo-thumbnail.png" />
 					<AvatarFallback>YM2.0</AvatarFallback>
 				</Avatar>
 			</div>

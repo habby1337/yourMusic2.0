@@ -1,10 +1,10 @@
-import { trackList } from "@/helpers/arrayList";
 import { ResultTrackItem, ResultTrackListSkeleton } from "./Search";
 import { track } from "@/helpers/types";
 import { useInfiniteQuery } from "react-query";
 import { generateRandomString } from "@/helpers/utils";
 import { API_URL } from "@/helpers/endpoints";
 import { useEffect, useRef } from "react";
+import { HeartCrack } from "lucide-react";
 
 const Suggestions = () => {
 	const fetchSuggestions = async ({ pageParam = 1 }: { pageParam?: number }) => {
@@ -48,6 +48,14 @@ const Suggestions = () => {
 		<div>
 			<h4 className="mb-4 mt-4 font-semibold">Suggestions for you</h4>
 			<div id="suggestions-container" className="max-h-[30vh] overflow-scroll">
+				{allSuggestions.length === 0 && (
+					<div className="flex items-center justify-center h-full p-5 space-x-2 text-neutral-400">
+						<HeartCrack size={20} />
+						<p className="text-sm ">No suggestions available at this time</p>
+						<HeartCrack size={20} />
+					</div>
+				)}
+
 				<SuggestionCards
 					suggestions={allSuggestions}
 					fetchNextPage={fetchNextPage}
@@ -55,11 +63,6 @@ const Suggestions = () => {
 					isFetchingNextPage={isFetchingNextPage}
 				/>
 				{isFetchingNextPage && <ResultTrackListSkeleton number={5} />}
-				{/* {hasNextPage && (
-					<button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
-						{isFetchingNextPage ? "Loading more..." : "Load More"}
-					</button>
-				)} */}
 			</div>
 		</div>
 	);

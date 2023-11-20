@@ -1,3 +1,10 @@
+export interface genre {
+	title: string;
+	description: string;
+	imageUrl: string;
+	trackUri: string;
+}
+
 export interface trackSearchResult {
 	tracks: tracks;
 }

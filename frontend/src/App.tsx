@@ -1,8 +1,5 @@
 import "./App.css";
 
-import { API_URL } from "./helpers/endpoints";
-
-import { useParams } from "react-router-dom";
 import Navigation from "./ui/Navigation";
 import SearchForm from "./ui/Search";
 import Discover from "./ui/Discover";
