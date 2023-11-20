@@ -7,6 +7,7 @@ import Navigation from "./ui/Navigation";
 import SearchForm from "./ui/Search";
 import Discover from "./ui/Discover";
 import Player from "./ui/Player";
+import Suggestions from "./ui/Suggestions";
 
 function App() {
 	return (
@@ -14,6 +15,7 @@ function App() {
 			<Navigation />
 			<SearchForm />
 			<Discover />
+			<Suggestions />
 			<Player />
 		</div>
 	);

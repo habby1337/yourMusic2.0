@@ -11,8 +11,10 @@ const Player = () => {
 			const res = await fetch(`${API_URL}/getCurrentTrack.php`);
 			return res.json();
 		},
-		{ refetchInterval: 10500, refetchIntervalInBackground: true },
+		{ refetchInterval: 10000, refetchIntervalInBackground: true },
 	);
+
+	// 10500
 
 	if (isLoading) {
 		return null;
@@ -64,13 +66,13 @@ const Player = () => {
 					animate={{ bottom: 0, display: "block", opacity: 1 }}
 					transition={{ duration: 0.3 }}
 					exit={{ bottom: "-20%", display: "none", opacity: 0 }}
-					className="absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/3  w-11/12 lg:w-2/5 rounded-xl shadow-sm"
+					className=" sticky bottom-0 left-0 right-0  mx-auto transform  -translate-y-1/3  w-11/12 lg:w-2/5 rounded-xl shadow-sm"
 				>
 					<Card
-						className=" bg-neutral-800 border-0 text-white  rounded-xl "
+						className=" bg-neutral-800 border-0 text-white  rounded-xl  "
 						style={{ backgroundImage: `url(${albumImage})` }}
 					>
-						<div className="backdrop-blur-3xl  w-full h-full rounded-xl p-3 ">
+						<div className="backdrop-blur-3xl  w-full h-full rounded-xl p-3 backdrop-brightness-50 ">
 							<div className="flex items-center justify-between ">
 								<div className="flex items-center gap-5">
 									{/* if isPlaying true animate the image */}

@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import { API_URL } from "@/helpers/endpoints";
 import { trackSearchResult, track } from "@/helpers/types";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import toast from "react-hot-toast";
 const SearchForm = () => {
 	const [showModal, setShowModal] = useState(false);
 	return (
@@ -48,6 +49,7 @@ const SearchModal = ({
 		["trackSearch", value],
 		async () => {
 			const res = await fetch(`${API_URL}/getSearchInfo.php?q=${value}`);
+
 			return res.json();
 		},
 		{ enabled: !!value, refetchOnWindowFocus: false },
@@ -68,13 +70,12 @@ const SearchModal = ({
 						initial={{ x: "-100%", opacity: 0 }}
 						animate={{ x: 0, opacity: 1 }}
 						transition={{ duration: 0.1 }}
-						exit={{ x: "-100%", opacity: 0 }}
 					>
 						<ArrowLeft size={30} strokeWidth={3} onClick={() => closeSearchMenu()} />
 						<motion.h1 className={`text-3xl font-bold ${isInputFocused ? "hidden" : ""}`}>Search</motion.h1>
 						<motion.div
-							onFocus={() => setIsInputFocused(true)}
-							onBlur={() => setIsInputFocused(false)}
+							// onFocus={() => setIsInputFocused(true)}
+							// onBlur={() => setIsInputFocused(false)}
 							className="relative"
 							initial={{ y: 0, opacity: 1, scale: 1 }}
 							animate={isInputFocused ? { y: -5, opacity: 0.8, scale: 0.95 } : { opacity: 1, scale: 1 }}
@@ -88,19 +89,19 @@ const SearchModal = ({
 								ref={inputRef}
 							/>
 							{/* <p>Debounced value: {value}</p> */}
-							{isInputFocused && (
-								<button
-									className=" absolute top-[10px] right-2"
-									onMouseDown={(e) => {
-										e.preventDefault();
-										setValue("");
-										inputRef.current!.value = "";
-										inputRef.current?.focus();
-									}}
-								>
-									<XCircle size={20} strokeWidth={3} />
-								</button>
-							)}
+							{/* {isInputFocused && ( */}
+							<button
+								className=" absolute top-[10px] right-2"
+								onMouseDown={(e) => {
+									e.preventDefault();
+									setValue("");
+									inputRef.current!.value = "";
+									inputRef.current?.focus();
+								}}
+							>
+								<XCircle size={20} strokeWidth={3} />
+							</button>
+							{/* )} */}
 						</motion.div>
 						<ResultTrackList data={data} isLoading={isLoading} error={error} />
 					</motion.div>
@@ -164,15 +165,19 @@ const ResultTrackListSkeleton = () => {
 	);
 };
 
-const ResultTrackItem = ({ item }: { item: track }) => {
+export const ResultTrackItem = ({ item }: { item: track }) => {
 	const [isHovered, setIsHovered] = useState(false);
 
-	const { data, isLoading, error } = useQuery("addToQueue", async () => {
-		const res = await fetch(`${API_URL}/addQueue.php?q=${item.id}`);
-		return res.json();
-	});
-
 	const handleAddToQueue = (item: track) => {
+		// refetch();
+		const res = fetch(`${API_URL}/addQueue.php?q=${item.uri}`);
+
+		toast.promise(res, {
+			loading: "Adding to queue",
+			success: "Added to queue",
+			error: "Something went wrong",
+		});
+
 		console.log(item);
 	};
 
