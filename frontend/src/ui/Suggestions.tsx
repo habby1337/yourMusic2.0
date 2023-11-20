@@ -18,6 +18,7 @@ const Suggestions = () => {
 		const suggestions = data.tracks.items.map((item: track) => ({
 			id: item.id,
 			name: item.name,
+			uri: item.uri,
 			album: {
 				id: item.album.id,
 				name: item.album.name,
