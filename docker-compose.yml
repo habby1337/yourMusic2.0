@@ -14,8 +14,8 @@ services:
       - backend
       - frontend
     environment:
-      - spotify_client_id=f360435b0be741a59853a9c642c79f36
-      - spotify_client_secret=198d91c1cda043ab9852099d809306e4
+      - spotify_client_id=f3604350be741a5962c79f36 => ID
+      - spotify_client_secret=198d1c1cda4b9099d09306e4 => SECRET
       - spotify_redirect_uri=http://localhost:8010/api/v1/callback.php
       - homepage_url=http://localhost:5173
 
