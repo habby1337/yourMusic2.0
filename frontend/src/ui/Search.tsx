@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ArrowLeft, Plus, XCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDebouncedCallback } from "use-debounce";
@@ -8,6 +8,7 @@ import { API_URL } from "@/helpers/endpoints";
 import { trackSearchResult, track } from "@/helpers/types";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import toast from "react-hot-toast";
+
 const SearchForm = () => {
 	const [showModal, setShowModal] = useState(false);
 	return (
@@ -37,6 +38,13 @@ const SearchModal = ({
 	const [value, setValue] = useState(defaultValue);
 	const [isInputFocused, setIsInputFocused] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);
+
+	useEffect(() => {
+		if (show) {
+			inputRef.current?.focus();
+		}
+	}, [show]);
+
 	const debounced = useDebouncedCallback(
 		(value) => {
 			setValue(value);
