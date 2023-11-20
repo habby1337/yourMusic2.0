@@ -34,10 +34,10 @@ you can find what i'm talking about in the `backend/api/v1/callback.php` line **
 - Run `docker-compose up` in the root directory to start the app.   
 
 ### 1.5 Authentication
-Go to `https:YourBeautifulApiEndpoint.com/auth.php` in the browser and login with the account you want to use. (this is the one who gets the song in queue)
+Go to `https://YourBeautifulApiEndpoint.com/auth.php` in the browser and login with the account you want to use. (this is the one who gets the song in queue)
 
 ### 1.6 Enjoy
-Go to `https:YourBeautifulApiEndpoint.com` and enjoy the app. (every one can use it and add songs to the queue)   
+Go to `https://YourBeautifulApiEndpoint.com` and enjoy the app. (every one can use it and add songs to the queue)   
 
 <hr/>
 
