@@ -1,5 +1,18 @@
 # YourMusic2.0
 
+## 0. About
+A better interface for your Spotify library. Built with React and the Spotify API.
+
+### 0.1 What's new
+- [x] New UI
+- [X] Random Suggestions
+- [X] Current song playing
+- [X] Clickable song name to open spotify
+- [X] Better search experience
+
+### 0.2 Why doing it again?
+So, I looked at the original project UI and i thought, 'Hmm, this needs a makeover'. So i decided it's time to pimp up the project's interface, make it more modern and more user friendly. I also added some new features that i thought would be cool to have, like, i'm not kidding, i've added more features than a Swiss Army knife on steroids. It's like the original project was using stone tools.
+
 
 ## 1. Setup
 `docker-compose.yml` is included for easy setup. You can also run the app locally by running `npm install` and `npm start` in both the `client` and `server` directories.
@@ -15,7 +28,11 @@ you can find what i'm talking about in the `backend/api/v1/callback.php` line **
 ### 1.3 Running the app
 - Run `docker-compose up` in the root directory to start the app.   
 
+<hr/>
 
+## Original Authors [(Original repo)](https://github.com/Lettly/YourMusic)
+- [ **@Lettly** - Marco Giuseppini ](https://github.com/Lettly)
+- [**@Lockso** - Lorenzo Chiaese](https://github.com/Lockso)
 
 
  
