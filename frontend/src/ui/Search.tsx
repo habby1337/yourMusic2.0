@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, forwardRef, Ref } from "react";
 import { ArrowLeft, Plus, XCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDebouncedCallback } from "use-debounce";
@@ -131,7 +131,7 @@ const ResultTrackList = ({ data, isLoading, error }: { data: trackSearchResult; 
 	}
 
 	if (isLoading) {
-		return <ResultTrackListSkeleton />;
+		return <ResultTrackListSkeleton number={5} />;
 	}
 
 	if (error) {
@@ -153,11 +153,11 @@ const ResultTrackList = ({ data, isLoading, error }: { data: trackSearchResult; 
 	}
 };
 
-const ResultTrackListSkeleton = () => {
+export const ResultTrackListSkeleton = ({ number }: { number: number }) => {
 	return (
 		<div className="space-y-2 overflow-scroll max-h-[75vh]">
 			<SkeletonTheme baseColor="#202020" highlightColor="#444">
-				{[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+				{[...Array(number)].map((item) => (
 					<div className="flex items-center space-x-2 bg-transparent p-1 rounded-xl" key={item}>
 						<div className="relative w-12 min-w-[3rem]">
 							<Skeleton circle={true} width={48} height={48} enableAnimation />
@@ -173,7 +173,7 @@ const ResultTrackListSkeleton = () => {
 	);
 };
 
-export const ResultTrackItem = ({ item }: { item: track }) => {
+export const ResultTrackItem = forwardRef(({ item }: { item: track }, ref: Ref<HTMLDivElement>) => {
 	const [isHovered, setIsHovered] = useState(false);
 
 	const handleAddToQueue = (item: track) => {
@@ -191,7 +191,8 @@ export const ResultTrackItem = ({ item }: { item: track }) => {
 
 	return (
 		<div
-			className={`flex items-center space-x-2 ${isHovered ? "bg-neutral-800" : "bg-transparent"} p-1 rounded-xl`}
+			ref={ref}
+			className={` flex items-center space-x-2 ${isHovered ? "bg-neutral-800" : "bg-transparent"} p-1 rounded-xl`}
 			onMouseOver={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 			onClick={() => handleAddToQueue(item)}
@@ -213,4 +214,4 @@ export const ResultTrackItem = ({ item }: { item: track }) => {
 			</div>
 		</div>
 	);
-};
+});
