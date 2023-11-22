@@ -46,8 +46,8 @@ const Suggestions = () => {
 
 	return (
 		<div>
-			<h4 className="mb-4 mt-4 font-semibold">Suggestions for you</h4>
-			<div id="suggestions-container" className="max-h-[30vh] overflow-scroll">
+			<h4 className="mt-4 mb-4 font-semibold">Suggestions for you</h4>
+			<div id="suggestions-container" className="max-h-[30vh] overflow-y-scroll">
 				{allSuggestions.length === 0 && (
 					<div className="flex items-center justify-center h-full p-5 space-x-2 text-neutral-400">
 						<HeartCrack size={20} />
