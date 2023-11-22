@@ -81,3 +81,12 @@
 		background: radial-gradient(circle, rgba(71, 85, 105, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
 	}
 }
+::-webkit-scrollbar {
+	//Needed for Chrome and Safari
+	width: 0px;
+}
+
+::-webkit-scrollbar-track-piece {
+	background-color: transparent;
+	-webkit-border-radius: 6px;
+}
