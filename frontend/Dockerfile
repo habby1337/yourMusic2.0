@@ -3,7 +3,7 @@ FROM node:20-slim AS base
 # ENV PATH="${PNPM_HOME}:${PATH}"
 # RUN corepack enable
 ARG VITE_API_URL
-ENV VITE_API_URL=${VITE_API_URL}
+ENV VITE_API_URL=$VITE_API_URL
 
 # RUN npm install -g pnpm
 
