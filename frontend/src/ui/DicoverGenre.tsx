@@ -63,7 +63,7 @@ const DiscoverGenreSection = ({ genre }: { genre: string }) => {
 	}
 
 	if (isError) {
-		return <p>Error: {error.message}</p>;
+		return <p>Error: {(error as Error).message}</p>;
 	}
 
 	const convertToTrackArray = (data: any) => {

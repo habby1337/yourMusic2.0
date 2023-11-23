@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { Card, CardDescription } from "@/components/ui/card";
 import { genres } from "@/helpers/arrayList";
 import { genre } from "@/helpers/types";
-import { handleAddToQueue } from "@/helpers/utils";
+
 import { useNavigate } from "react-router-dom";
 const Title = () => {
 	return (
