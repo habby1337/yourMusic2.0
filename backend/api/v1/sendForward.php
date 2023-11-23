@@ -1,6 +1,8 @@
 <?php
 require $_SERVER["DOCUMENT_ROOT"] . '/vendor/autoload.php';
 
+include 'cors_middleware.php';
+
 $session = new SpotifyWebAPI\Session(
     getenv("spotify_client_id"),
     getenv("spotify_client_secret")

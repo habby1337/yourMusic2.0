@@ -1,6 +1,8 @@
 <?php
 require $_SERVER["DOCUMENT_ROOT"] . '/vendor/autoload.php';
 
+include 'cors_middleware.php';
+
 session_start();
 
 if (empty($_SESSION['accesstoken'])) {
