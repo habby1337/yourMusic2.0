@@ -21,7 +21,7 @@ const Player = () => {
 
 	useEffect(() => {
 		if (!data?.is_playing) return;
-		if (!showPlayer) animate(scope.current, { x: 0, y: 70, display: "block", opacity: 0.5 });
+		if (!showPlayer) animate(scope.current, { x: 0, y: 70, display: "block", opacity: 0.8 });
 		else animate(scope.current, { x: 0, y: 0, display: "block", opacity: 1 });
 	}, [showPlayer]);
 	// 10500
@@ -82,7 +82,7 @@ const Player = () => {
 						className="text-white border-0 bg-neutral-800 rounded-xl"
 						style={{ backgroundImage: `url(${albumImage})` }}
 					>
-						<div className="w-full h-full p-3 backdrop-blur-3xl rounded-xl backdrop-brightness-50 ">
+						<div className="w-full h-full p-3 backdrop-blur-3xl rounded-xl backdrop-brightness-50">
 							<div className="absolute top-1 right-2">
 								{showPlayer && <ChevronDown size={30} strokeWidth={3} onClick={() => setShowPlayer(!showPlayer)} />}
 								{!showPlayer && <ChevronUp size={30} strokeWidth={3} onClick={() => setShowPlayer(!showPlayer)} />}
