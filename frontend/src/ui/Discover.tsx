@@ -36,10 +36,11 @@ export const CardSlider = () => {
 
 export const GenreCard = ({ title, description, imageUrl, trackUri }: genre) => {
 	const navigate = useNavigate();
+	const encodedTitle = encodeURIComponent(title);
 	return (
 		<Card
-			onClick={() => navigate(`/discover/${trackUri}`)}
-			className="cursor-pointer  h-[15rem] relative overflow-clip border-0 bg-neutral-800 rounded-3xl flex-none "
+			onClick={() => navigate(`/discover/${trackUri}/${encodedTitle}`)}
+			className="cursor-pointer w-full  h-[15rem] relative overflow-clip border-0 bg-neutral-800 rounded-3xl flex-none "
 		>
 			<div className="absolute flex radial-bg  backdrop-blur-[1px] text-white w-full h-48 font-bold justify-center items-center rounded-b-3xl">
 				<div className="text-lg ">{title}</div>

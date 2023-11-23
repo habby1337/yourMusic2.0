@@ -39,9 +39,9 @@ export const genres: genre[] = [
 		trackUri: "eletronic",
 	},
 	{
-		title: "Raq & Fede",
-		description: "Raq & Fede",
-		imageUrl: "https://i.scdn.co/image/ab67616d0000b273b1f6f2b7a1a9e1a8a0e4b7f3",
-		trackUri: "PL=37i9dQZF1EJywxq1eHMXjH",
+		title: "Dont hug a tree, plz",
+		description: "Beats that make my friends grab the chicken handle",
+		imageUrl: "https://i.scdn.co/image/ab67706c0000da84f0b02ff5dcfeacddf0030012",
+		trackUri: "PL=1TZ5ySqWeHGbEKoyDcBIjY",
 	},
 ];

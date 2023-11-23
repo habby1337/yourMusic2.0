@@ -12,7 +12,8 @@ import { track } from "@/helpers/types";
 
 const DiscoverGenre = () => {
 	const navigate = useNavigate();
-	const { genre } = useParams<{ genre: string }>();
+	const { genre, title } = useParams<{ genre: string; title: string }>();
+
 	return (
 		<div className="container w-screen h-screen p-0">
 			<div className="sticky top-0 z-20 p-3 pb-4 bg-neutral-900 backdrop-blur-xl bg-opacity-30">
@@ -22,10 +23,10 @@ const DiscoverGenre = () => {
 
 			<div className="p-3 space-y-5">
 				<div className="flex items-center text-2xl font-semibold text-neutral-300">
-					<button onClick={() => navigate(genre ? "/discover" : "/")} className="mr-3">
+					<button onClick={() => navigate(title ? "/discover" : "/")} className="mr-3">
 						<ArrowLeft size={20} strokeWidth={3} />
 					</button>
-					<p>{genre ? capitalizeString(genre) : "Discover"}</p>
+					<p>{title ? capitalizeString(title) : "Discover"}</p>
 				</div>
 				<Separator decorative className="opacity-25" />
 

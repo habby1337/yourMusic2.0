@@ -11,7 +11,7 @@ import DiscoverGenre from "./ui/DicoverGenre.tsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
 	{ path: "/", Component: App },
-	{ path: "/discover/:genre?", Component: DiscoverGenre },
+	{ path: "/discover/:genre?/:title?", Component: DiscoverGenre },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
