@@ -3,22 +3,24 @@ import { Card, CardDescription } from "@/components/ui/card";
 import { genres } from "@/helpers/arrayList";
 import { genre } from "@/helpers/types";
 import { handleAddToQueue } from "@/helpers/utils";
-
+import { useNavigate } from "react-router-dom";
 const Title = () => {
 	return (
 		<div className="flex items-baseline justify-between mb-4 ">
 			<h1 className="text-[28px]">Discover new</h1>
-			<div className="flex items-center gap-1 align-bottom">
-				<p className="text-sm ">View more genres</p>
-				<ArrowRight size={14} strokeWidth={3} />
+			<div>
+				<a href="/discover" className="flex items-center gap-1 align-bottom">
+					<p className="text-sm ">View more genres</p>
+					<ArrowRight size={14} strokeWidth={3} />
+				</a>
 			</div>
 		</div>
 	);
 };
 
-const CardSlider = () => {
+export const CardSlider = () => {
 	return (
-		<div className="flex flex-no-wrap items-start gap-5 overflow-x-scroll scrolling-touch">
+		<div className="flex flex-no-wrap items-start gap-5 pb-4 overflow-x-scroll scrolling-touch">
 			{genres.slice(0, 10).map((genre) => (
 				<GenreCard
 					title={genre.title}
@@ -32,11 +34,12 @@ const CardSlider = () => {
 	);
 };
 
-const GenreCard = ({ title, description, imageUrl, trackUri }: genre) => {
+export const GenreCard = ({ title, description, imageUrl, trackUri }: genre) => {
+	const navigate = useNavigate();
 	return (
 		<Card
-			onClick={() => handleAddToQueue(trackUri)}
-			className="cursor-pointer w-3/6 sm:w-1/4 md:w-1/5 lg:w-1/6 h-[15rem] relative overflow-clip border-0 bg-neutral-800 rounded-3xl flex-none mb-8"
+			onClick={() => navigate(`/discover/${trackUri}`)}
+			className="cursor-pointer  h-[15rem] relative overflow-clip border-0 bg-neutral-800 rounded-3xl flex-none "
 		>
 			<div className="absolute flex radial-bg  backdrop-blur-[1px] text-white w-full h-48 font-bold justify-center items-center rounded-b-3xl">
 				<div className="text-lg ">{title}</div>

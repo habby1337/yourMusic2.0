@@ -6,9 +6,13 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { Toaster } from "react-hot-toast";
 import "./index.css";
 import "react-loading-skeleton/dist/skeleton.css";
+import DiscoverGenre from "./ui/DicoverGenre.tsx";
 
 const queryClient = new QueryClient();
-const router = createBrowserRouter([{ path: "/", Component: App }]);
+const router = createBrowserRouter([
+	{ path: "/", Component: App },
+	{ path: "/discover/:genre?", Component: DiscoverGenre },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
