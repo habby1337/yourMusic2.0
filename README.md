@@ -9,7 +9,7 @@ A better interface for your Spotify library. Built with React and the Spotify AP
 - [X] Current song playing
 - [X] Clickable song name to open spotify
 - [X] Better search experience
-- [ ] Playback estimation
+- [X] Playback estimation
 - [x] Infinite scroll not working on chorme / safari
 - [ ] fix chrome searchbar moving the playback card way to low 
 

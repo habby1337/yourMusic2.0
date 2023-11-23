@@ -7,6 +7,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 
 const Player = () => {
 	const [showPlayer, setShowPlayer] = useState(true);
+	const [songProgress, setSongProgress] = useState(0);
 	const [scope, animate] = useAnimate();
 	const { data, isLoading } = useQuery(
 		"getSong",
@@ -24,6 +25,17 @@ const Player = () => {
 		else animate(scope.current, { x: 0, y: 0, display: "block", opacity: 1 });
 	}, [showPlayer]);
 	// 10500
+	useEffect(() => {
+		setSongProgress((data?.progress_ms / data?.item?.duration_ms) * 100 || 0);
+	}, [data]);
+
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			setSongProgress((prevProgress) => (prevProgress + 1) % 100);
+		}, 1000);
+
+		return () => clearInterval(intervalId);
+	}, []);
 
 	if (isLoading) {
 		return null;
@@ -40,22 +52,10 @@ const Player = () => {
 	const spotifyUrl = album.external_urls.spotify;
 	const isPlaying = data.is_playing;
 
-	const progressBar = () => {
-		const progress = data.progress_ms;
-		const duration = data.item.duration_ms;
-		const percentage = (progress / duration) * 100;
-		return percentage;
-	};
-
-	const currentTime = () => {
-		const progress = data.progress_ms;
+	const formatTime = (progress: number) => {
 		const minutes = Math.floor(progress / 60000);
 		const seconds = ((progress % 60000) / 1000).toFixed(0);
-		if (Number(seconds) < 10) {
-			// place a zero in front of the seconds if it is less than 10
-			return `${minutes}:0${seconds}`;
-		}
-		return `${minutes}:${seconds}`;
+		return `${minutes}:${Number(seconds) < 10 ? "0" : ""}${seconds}`;
 	};
 
 	const songLength = () => {
@@ -76,13 +76,13 @@ const Player = () => {
 					transition={{ duration: 0.3 }}
 					exit={{ bottom: "-5%", opacity: 0 }}
 					ref={scope}
-					className=" sticky bottom-0 left-0 right-0  mx-auto transform    w-11/12 lg:w-2/5 rounded-xl shadow-sm"
+					className="sticky bottom-0 left-0 right-0 w-11/12 mx-auto transform shadow-sm lg:w-2/5 rounded-xl"
 				>
 					<Card
-						className=" bg-neutral-800 border-0 text-white  rounded-xl  "
+						className="text-white border-0 bg-neutral-800 rounded-xl"
 						style={{ backgroundImage: `url(${albumImage})` }}
 					>
-						<div className="backdrop-blur-3xl  w-full h-full rounded-xl p-3 backdrop-brightness-50 ">
+						<div className="w-full h-full p-3 backdrop-blur-3xl rounded-xl backdrop-brightness-50 ">
 							<div className="absolute top-1 right-2">
 								{showPlayer && <ChevronDown size={30} strokeWidth={3} onClick={() => setShowPlayer(!showPlayer)} />}
 								{!showPlayer && <ChevronUp size={30} strokeWidth={3} onClick={() => setShowPlayer(!showPlayer)} />}
@@ -101,23 +101,25 @@ const Player = () => {
 									</a>
 									{/* <img src={albumImage} alt="" className="w-12 h-12 rounded-full"  /> */}
 									<div>
-										<a className="text-sm font-bold  mix-blend-difference" href={spotifyUrl} target="_blank">
+										<a className="text-sm font-bold mix-blend-difference" href={spotifyUrl} target="_blank">
 											{name}
 										</a>
-										<p className="text-sm  mix-blend-difference">{artistList}</p>
+										<p className="text-sm mix-blend-difference">{artistList}</p>
 									</div>
 								</div>
 							</div>
 							{/* timeslider */}
-							<div className="mt-3 relative">
-								<div className="w-full h-1 bg-neutral-700 rounded-full absolute"></div>
+							<div className="relative mt-3">
+								<div className="absolute w-full h-1 rounded-full bg-neutral-700"></div>
 								<div
-									className="w-full h-1 bg-white rounded-full absolute mix-blend-difference"
-									style={{ width: `${progressBar()}%` }}
+									className="absolute w-full h-1 bg-white rounded-full mix-blend-difference"
+									style={{ width: `${songProgress}%` }}
 								></div>
 							</div>
 							<div className="flex items-center justify-between mt-4">
-								<p className="text-sm font-bold mix-blend-difference">{currentTime()}</p>
+								<p className="text-sm font-bold mix-blend-difference">
+									{formatTime((songProgress * data.item.duration_ms) / 100)}
+								</p>
 								<p className="text-sm font-bold mix-blend-difference">{songLength()}</p>
 							</div>
 
@@ -126,7 +128,7 @@ const Player = () => {
 					<p className="text-sm font-bold">3:00</p>
 				</div>
 				<div className="mt-3">
-					<div className="w-full h-1 bg-neutral-700 rounded-full"></div>
+					<div className="w-full h-1 rounded-full bg-neutral-700"></div>
 					<div className="w-1/2 h-1 bg-white rounded-full"></div>
 				</div> */}
 						</div>
