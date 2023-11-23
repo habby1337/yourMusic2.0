@@ -86,7 +86,15 @@ switch (strtolower($_GET['q'])) {
         $results = $api->getPlaylistTracks('spotify:playlist:3nHAy48ehubMfiAuZI9fe5');
         break;
     default:
-        $results = $api->search($_GET['q'], 'track');
+        if (substr($_GET['q'], 0, 3) === 'PL=') {
+            $playlistURI = substr($_GET['q'], 3);
+            $results = $api->getPlaylistTracks($playlistURI);   
+        }
+        else {
+            $trackURI = $_GET['q'];
+            $results = $api->search($_GET['q'], 'track');
+        }
+        
         break;
 }
 

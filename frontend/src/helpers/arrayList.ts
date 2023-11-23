@@ -38,4 +38,10 @@ export const genres: genre[] = [
 		imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS21nA_ltW6FSB9Dto4roIKddE_MDqGKpf4Ag&usqp=CAU",
 		trackUri: "eletronic",
 	},
+	{
+		title: "Raq & Fede",
+		description: "Raq & Fede",
+		imageUrl: "https://i.scdn.co/image/ab67616d0000b273b1f6f2b7a1a9e1a8a0e4b7f3",
+		trackUri: "PL=37i9dQZF1EJywxq1eHMXjH",
+	},
 ];
