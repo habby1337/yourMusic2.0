@@ -14,11 +14,13 @@ const DiscoverGenre = () => {
 	const navigate = useNavigate();
 	const { genre } = useParams<{ genre: string }>();
 	return (
-		<div className="container w-screen h-screen p-4 overflow-y-hidden">
-			<Navigation />
-			<SearchForm />
+		<div className="container w-screen h-screen p-0">
+			<div className="sticky top-0 z-20 p-3 pb-4 bg-neutral-900 backdrop-blur-xl bg-opacity-30">
+				<Navigation />
+				<SearchForm />
+			</div>
 
-			<div className="mt-10 space-y-5">
+			<div className="p-3 space-y-5">
 				<div className="flex items-center text-2xl font-semibold text-neutral-300">
 					<button onClick={() => navigate(genre ? "/discover" : "/")} className="mr-3">
 						<ArrowLeft size={20} strokeWidth={3} />
@@ -38,7 +40,7 @@ export default DiscoverGenre;
 
 const DiscoverCardSection = () => {
 	return (
-		<div className="grid grid-cols-2 gap-2 sm:grid-cols-4 md:grid-cols-6">
+		<div className="grid h-screen grid-cols-2 gap-2 sm:grid-cols-4 md:grid-cols-6">
 			{genres.slice(0, 30).map((genre) => (
 				<GenreCard
 					title={genre.title}
