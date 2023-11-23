@@ -77,6 +77,7 @@ const SearchModal = ({
 						initial={{ x: "-100%", opacity: 0 }}
 						animate={{ x: 0, opacity: 1 }}
 						transition={{ duration: 0.1 }}
+						exit={{ x: "-100%", opacity: 0 }}
 					>
 						<ArrowLeft size={30} strokeWidth={3} onClick={() => closeSearchMenu()} />
 						<motion.h1 className={`text-3xl font-bold `}>Search</motion.h1>
@@ -169,7 +170,7 @@ const ResultTrackList = ({
 
 	if (data?.tracks) {
 		return (
-			<div className="space-y-2 overflow-scroll max-h-[75vh]">
+			<div className="space-y-2 overflow-y-scroll max-h-[75vh]">
 				{data.tracks.items.map((item) => (
 					<ResultTrackItem key={item.id} item={item} />
 				))}
@@ -180,7 +181,7 @@ const ResultTrackList = ({
 
 export const ResultTrackListSkeleton = ({ number }: { number: number }) => {
 	return (
-		<div className="space-y-2 overflow-scroll max-h-[75vh]">
+		<div className="space-y-2 overflow-y-scroll max-h-[75vh]">
 			<SkeletonTheme baseColor="#202020" highlightColor="#444">
 				{[...Array(number)].map((item, index) => (
 					<div className="flex items-center p-1 space-x-2 bg-transparent rounded-xl" key={index}>

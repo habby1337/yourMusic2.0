@@ -19,5 +19,5 @@ file_put_contents("data/.refreshToken", serialize($refreshToken));
 
 // echo "<br>" . $accessToken;
     // Send the user along and fetch some data!
-header('Location: '. getenv('homepage_url') . '/?isLogin=true');
+header('Location: '. getenv('homepage_url') );
 die();

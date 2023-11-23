@@ -8,7 +8,7 @@ import "./index.css";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const queryClient = new QueryClient();
-const router = createBrowserRouter([{ path: "/:isLogin?", Component: App }]);
+const router = createBrowserRouter([{ path: "/", Component: App }]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
