@@ -21,3 +21,7 @@ export const handleAddToQueue = (trackUri: track["uri"]) => {
 		error: "Something went wrong",
 	});
 };
+
+export const capitalizeString = (str: string) => {
+	return str.charAt(0).toUpperCase() + str.slice(1);
+};
