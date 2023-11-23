@@ -96,9 +96,9 @@ const SuggestionCards = ({
 
 	useEffect(() => {
 		scrollObserver!.current = new IntersectionObserver(loadMore, {
-			root: document.getElementById("suggestion-container"),
+			root: document.getElementById("suggestions-container"),
 			rootMargin: "0px",
-			threshold: 1,
+			threshold: 0.4,
 		});
 
 		if (lastItemRef.current && scrollObserver.current) {
