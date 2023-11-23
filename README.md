@@ -9,6 +9,9 @@ A better interface for your Spotify library. Built with React and the Spotify AP
 - [X] Current song playing
 - [X] Clickable song name to open spotify
 - [X] Better search experience
+- [ ] Playback estimation
+- [ ] Infinite scroll not working on chorme / safari
+- [ ] fix chrome searchbar moving the playback card way to low 
 
 ### 0.2 Why doing it again?
 So, I looked at the original project UI and i thought, 'Hmm, this needs a makeover'. So i decided it's time to pimp up the project's interface, make it more modern and more user friendly. I also added some new features that i thought would be cool to have, like, i'm not kidding, i've added more features than a Swiss Army knife on steroids. It's like the original project was using stone tools.
