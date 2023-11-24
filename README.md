@@ -1,6 +1,6 @@
 
 # 📃About **YourMusic2.0**
-A better interface for your Spotify library. Built with React and the Spotify API.
+A better interface for your Spotify Queue. Built with React and the Spotify API.
 
 ##  ✨ What's new 
 - [x] New UI
