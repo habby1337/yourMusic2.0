@@ -5,6 +5,7 @@ import { generateRandomString } from "@/helpers/utils";
 import { API_URL } from "@/helpers/endpoints";
 import { useEffect, useRef } from "react";
 import { HeartCrack } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Suggestions = () => {
 	const fetchSuggestions = async ({ pageParam = 1 }: { pageParam?: number }) => {
@@ -81,9 +82,6 @@ const SuggestionCards = ({
 	hasNextPage: any;
 	isFetchingNextPage: boolean;
 }) => {
-	// get 20 suggestions from tracklist starting at random index
-	// const randomIndex = Math.floor(Math.random() * trackList.length);
-	// const suggestions = trackList.slice(randomIndex, randomIndex + 5);
 	const lastItemRef = useRef<HTMLDivElement>(null);
 	const scrollObserver = useRef<IntersectionObserver | null>(null);
 
@@ -113,11 +111,18 @@ const SuggestionCards = ({
 	}, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
 	return (
-		<>
-			{suggestions.map((track: track, index: number) => (
-				<ResultTrackItem key={track.id} item={track} ref={index === suggestions.length - 1 ? lastItemRef : null} />
-			))}
-		</>
+		<AnimatePresence>
+			<motion.div
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 100 }}
+				transition={{ duration: 0.5 }}
+				exit={{ opacity: 0 }}
+			>
+				{suggestions.map((track: track, index: number) => (
+					<ResultTrackItem key={track.id} item={track} ref={index === suggestions.length - 1 ? lastItemRef : null} />
+				))}
+			</motion.div>
+		</AnimatePresence>
 	);
 };
 

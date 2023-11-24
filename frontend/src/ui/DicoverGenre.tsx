@@ -49,6 +49,7 @@ const DiscoverCardSection = () => {
 					imageUrl={genre.imageUrl}
 					trackUri={genre.trackUri}
 					key={genre.title}
+					width="w-full"
 				/>
 			))}
 		</div>

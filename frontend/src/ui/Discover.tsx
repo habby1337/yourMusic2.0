@@ -4,6 +4,9 @@ import { genres } from "@/helpers/arrayList";
 import { genre } from "@/helpers/types";
 
 import { useNavigate } from "react-router-dom";
+import { motion, useAnimation, useInView } from "framer-motion";
+import { useEffect, useRef } from "react";
+
 const Title = () => {
 	return (
 		<div className="flex items-baseline justify-between mb-4 ">
@@ -28,28 +31,42 @@ export const CardSlider = () => {
 					imageUrl={genre.imageUrl}
 					trackUri={genre.trackUri}
 					key={genre.title}
+					width="w-[14rem]"
 				/>
 			))}
 		</div>
 	);
 };
 
-export const GenreCard = ({ title, description, imageUrl, trackUri }: genre) => {
+export const GenreCard = ({ title, description, imageUrl, trackUri, width }: genre & { width: string }) => {
 	const navigate = useNavigate();
 	const encodedTitle = encodeURIComponent(title);
+
+	const controls = useAnimation();
+	const cardRef = useRef<HTMLDivElement>(null);
+	const isInView = useInView(cardRef);
+
+	useEffect(() => {
+		if (isInView) {
+			controls.start({ opacity: 1, x: 0 });
+		}
+	}, [isInView]);
+
 	return (
-		<Card
-			onClick={() => navigate(`/discover/${trackUri}/${encodedTitle}`)}
-			className="cursor-pointer w-full  h-[15rem] relative overflow-clip border-0 bg-neutral-800 rounded-3xl flex-none "
-		>
-			<div className="absolute flex radial-bg  backdrop-blur-[1px] text-white w-full h-48 font-bold justify-center items-center rounded-b-3xl">
-				<div className="text-lg ">{title}</div>
-			</div>
-			<img src={imageUrl} alt="" className="w-full h-48 rounded-b-3xl" />
-			<div className="p-3 pt-0 ">
-				<CardDescription className="pt-1 text-sm text-white">{description}</CardDescription>
-			</div>
-		</Card>
+		<motion.div ref={cardRef} initial={{ opacity: 0 }} animate={controls} transition={{ duration: 0.6 }}>
+			<Card
+				onClick={() => navigate(`/discover/${trackUri}/${encodedTitle}`)}
+				className={`cursor-pointer ${width}  h-[15rem] relative overflow-clip border-0 bg-neutral-800 rounded-3xl flex-none `}
+			>
+				<div className="absolute flex radial-bg  backdrop-blur-[1px] text-white w-full h-48 font-bold justify-center items-center rounded-b-3xl">
+					<div className="text-lg ">{title}</div>
+				</div>
+				<img src={imageUrl} alt="" className="w-full h-48 rounded-b-3xl" />
+				<div className="p-3 pt-0 ">
+					<CardDescription className="pt-1 text-sm text-white">{description}</CardDescription>
+				</div>
+			</Card>
+		</motion.div>
 	);
 };
 

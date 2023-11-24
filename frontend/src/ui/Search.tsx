@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { useState, useRef, useEffect, forwardRef, Ref } from "react";
 import { ArrowLeft, MailWarning, Music, Plus, ServerOff, XCircle } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useAnimation, useInView } from "framer-motion";
 import { useDebouncedCallback } from "use-debounce";
 import { useQuery } from "react-query";
 import { API_URL } from "@/helpers/endpoints";
@@ -111,7 +111,7 @@ const SearchModal = ({
 							</button>
 							{/* )} */}
 						</motion.div>
-						<ResultTrackList data={data} isLoading={isLoading} error={error} isError={isError} />
+						<ResultTrackList data={data} isLoading={isLoading} error={error as Error} isError={isError} />
 					</motion.div>
 				)}
 			</AnimatePresence>
@@ -127,7 +127,7 @@ const ResultTrackList = ({
 }: {
 	data: trackSearchResult;
 	isLoading: boolean;
-	error: any;
+	error: Error;
 	isError: boolean;
 }) => {
 	// console.log("error", error, isError);
@@ -202,29 +202,55 @@ export const ResultTrackListSkeleton = ({ number }: { number: number }) => {
 export const ResultTrackItem = forwardRef(({ item }: { item: track }, ref: Ref<HTMLDivElement>) => {
 	const [isHovered, setIsHovered] = useState(false);
 
-	return (
-		<div
-			ref={ref}
-			className={` flex items-center space-x-2 ${isHovered ? "bg-neutral-800" : "bg-transparent"} p-1 rounded-xl`}
-			onMouseOver={() => setIsHovered(true)}
-			onMouseLeave={() => setIsHovered(false)}
-			onClick={() => handleAddToQueue(item.uri)}
-		>
-			<div className="relative w-12 min-w-[3rem]">
-				<div
-					className={`${
-						isHovered ? "opacity-100" : "opacity-0"
-					} absolute transition-all h-12 w-12 flex   justify-center items-center bg-neutral-600 bg-opacity-70 backdrop-blur-[1px] rounded-full`}
-				>
-					<Plus size={20} strokeWidth={3} />
-				</div>
+	const controls = useAnimation();
+	const trackRef = useRef<HTMLDivElement>(null);
+	const isInView = useInView(trackRef);
 
-				<img src={item.album.images[0].url} alt="" className="w-12 h-12 rounded-full" />
+	useEffect(() => {
+		if (isInView) {
+			controls.start({ opacity: 1, y: 0 });
+		}
+	}, [isInView]);
+
+	return (
+		<motion.div
+			ref={trackRef}
+			initial={{ opacity: 0, y: 10 }}
+			animate={controls}
+			transition={{
+				duration: 0.3,
+				delay: 0.1,
+				type: "spring",
+				bounce: 0.3,
+				stiffness: 100,
+				damping: 10,
+				mass: 0.5,
+				velocity: 0,
+			}}
+		>
+			<div
+				ref={ref}
+				className={` flex items-center space-x-2 ${isHovered ? "bg-neutral-800" : "bg-transparent"} p-1 rounded-xl`}
+				onMouseOver={() => setIsHovered(true)}
+				onMouseLeave={() => setIsHovered(false)}
+				onClick={() => handleAddToQueue(item.uri)}
+			>
+				<div className="relative w-12 min-w-[3rem]">
+					<div
+						className={`${
+							isHovered ? "opacity-100" : "opacity-0"
+						} absolute transition-all h-12 w-12 flex   justify-center items-center bg-neutral-600 bg-opacity-70 backdrop-blur-[1px] rounded-full`}
+					>
+						<Plus size={20} strokeWidth={3} />
+					</div>
+
+					<img src={item.album.images[0].url} alt="" className="w-12 h-12 rounded-full" />
+				</div>
+				<div className="flex flex-col ">
+					<p className="font-bold">{item.name}</p>
+					<p className="text-sm">{item.artists.map((artist) => artist.name).join(", ")}</p>
+				</div>
 			</div>
-			<div className="flex flex-col ">
-				<p className="font-bold">{item.name}</p>
-				<p className="text-sm">{item.artists.map((artist) => artist.name).join(", ")}</p>
-			</div>
-		</div>
+		</motion.div>
 	);
 });
