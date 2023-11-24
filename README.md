@@ -13,6 +13,7 @@ A better interface for your Spotify library. Built with React and the Spotify AP
 - [x] Infinite scroll not working on chorme / safari
 - [X] fix chrome searchbar moving the playback card way to low 
 - [X] Menu closing animation
+- [ ] Add a way to add playlists to the discover page ??
 
 ### 0.2 Why doing it again?
 So, I looked at the original project UI and i thought, 'Hmm, this needs a makeover'. So i decided it's time to pimp up the project's interface, make it more modern and more user friendly. I also added some new features that i thought would be cool to have, like, i'm not kidding, i've added more features than a Swiss Army knife on steroids. It's like the original project was using stone tools.
@@ -42,6 +43,30 @@ Go to `https://BACKEND.com/api/v1/auth.php` in the browser and login with the ac
 
 ### 1.6 Enjoy
 Go to `https://YourBeautifulFRONTEND.com` and enjoy the app. (every one can use it and add songs to the queue)   
+
+
+### Bonus: How to add personal playlists to the discover page   
+Go to `frontend/src/helpers/arrayList.ts` and add your playlist uri to the array. Follows the object structure:
+ ```javascript
+  {
+    title: "Playlist Title", // This will show up on the discover page and in the title of the page
+    description: "Playlist keywords", // This will show up on the discover page (keep it short max 4/5 words)
+    imageUrl: "https://imageurl.com/image.png", // Could be of any size, but keep it square (should be self explanatory what this is and where it shows up) 
+    trackUri: "PL=1TZ5ySqWeHGbEKoyDcBIj", // Check under for how to use it
+  },
+  ```   
+  - `trackUri`, this is the most important part, this is the uri of the playlist you want to add to the discover page. 
+     1. You can get this by going to the playlist on spotify and clicking the three dots and then `Share` and then `Copy Spotify URL`. 
+     2. You should see the full url ("https://open.spotify.com/playlist/1TZ5ySqWeHGbEKoyDcBIjY?si=60493d5fc4a142b0)
+    you should get the part after `playlist/` and before `?si=60493d5fc4a142b0` (in this case `1TZ5ySqWeHGbEKoyDcBIjY`)
+
+
+
+
+  - Also keep in mind that you need to add the `PL=` before the uri (in this case `PL=1TZ5ySqWeHGbEKoyDcBIjY`), because the backend uses this to understand if it's a playlist or a query word. (if it's a query word it will search for it on spotify)
+
+
+
 
 <hr/>
 
