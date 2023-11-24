@@ -1,29 +1,32 @@
 version: "1"
 
 services:
-  backend:
-    container_name: yourMusic-Backend
+  backend_sp:
+    container_name: yourMusic-Backend-sp
     build:
       context: ./backend
       dockerfile: Dockerfile
-    ports:
-      - "8010:80"
     volumes:
       - ./backend:/var/www/html
     environment:
-      - spotify_client_id=f3604350be741a5962c79f36 => ID
-      - spotify_client_secret=198d1c1cda4b9099d09306e4 => SECRET
-      - spotify_redirect_uri=https://localhost:8010/api/v1/callback.php
-      - homepage_url=https://localhost:5173
+      - spotify_client_id=YOUR_SECRET_CODE
+      - spotify_client_secret=YOUR_SECRET_CODE
+      - spotify_redirect_uri=https://spbackend.tensi.dev/api/v1/callback.php
+      - homepage_url=https://sp.tensi.dev
 
-  frontend:
-    container_name: yourMusic-Frontend
+  frontend_sp:
+    container_name: yourMusic-Frontend-sp
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    ports:
-      - "80:3000"
+      args:
+        VITE_API_URL: https://spbackend.tensi.dev/api/v1
     volumes:
       - ./frontend:/app
+
     depends_on:
-      - backend
+      - backend_sp
+networks:
+  default:
+    external: true
+    name: mynetwork
