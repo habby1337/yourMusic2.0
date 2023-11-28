@@ -8,7 +8,7 @@ import Suggestions from "./ui/Suggestions";
 
 function App() {
 	return (
-		<div className="container w-screen h-screen p-4 ">
+		<div className="container w-screen h-screen p-4 overflow-x-hidden">
 			<Navigation />
 			<SearchForm />
 			<Discover />
