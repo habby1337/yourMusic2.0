@@ -29,5 +29,21 @@ $options = [
 $api = new SpotifyWebAPI\SpotifyWebAPI($options, $session);
 
 // Fetch the saved access token from somewhere. A database for example.
+try {
+    $api->queue($_GET['q']);
+    echo json_encode([
+        "message" => "success",
+        "code" => 200
+    ]);
 
-var_dump($api->queue($_GET['q']));
+} catch (SpotifyWebAPI\SpotifyWebAPIException $e) {
+    echo json_encode([
+        "message" => $e->getMessage(),
+        "code" => $e->getCode()
+    ]);
+}
+
+
+
+
+// var_dump($api->queue($_GET['q']));
