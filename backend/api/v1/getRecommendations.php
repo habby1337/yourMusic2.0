@@ -26,10 +26,26 @@ $api = new SpotifyWebAPI\SpotifyWebAPI($options, $session);
 $currentTrackSeed = array($api->getMyCurrentTrack()->item->id);
 
 
-
+try {
 $recommendations = $api->getRecommendations([
     'seed_tracks' => $currentTrackSeed,
 ]);
+} catch (SpotifyWebAPI\SpotifyWebAPIException $e) {
+    echo json_encode([
+        "message" => "Error: " . $e->getMessage(),
+        "code" => 400,
+    ]);
+    exit();
+}
+
+if($recommendations->tracks == null) {
+    echo json_encode([
+        "message" => "No recommendations found",
+        "code" => 400,
+    ]);
+    exit();
+}
+
 
 echo json_encode($recommendations);
 
