@@ -7,11 +7,13 @@ import { Toaster } from "react-hot-toast";
 import "./index.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import DiscoverGenre from "./ui/DicoverGenre.tsx";
+import { AuthorizeMe } from "./ui/AuthorizeMe.tsx";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
 	{ path: "/", Component: App },
 	{ path: "/discover/:genre?/:title?", Component: DiscoverGenre },
+	{ path: "/authorizeMe", Component: AuthorizeMe },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
