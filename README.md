@@ -47,6 +47,7 @@ you can find what i'm talking about in the `backend/api/v1/callback.php` line **
 
 ## 👮 1.5 Authentication
 Go to `https://BACKEND.com/api/v1/auth.php` in the browser and login with the account you want to use. (this is account who gets the song in queue) [keep in mind that it should redirect you to the homepage (`homepage_url`)]
+or use the `https://frontenddomain.com/authorizeMe` endpoint to get redirected to the login page. 
 
 ## 🎉 1.6 Enjoy
 Go to `https://YourBeautifulFRONTEND.com` and enjoy the app. (every one can use it and add songs to the queue)   
