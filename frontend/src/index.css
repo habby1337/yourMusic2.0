@@ -153,3 +153,28 @@
 	box-shadow: 0 0 0.6em 0.25em var(--glow-color), 0 0 2.5em 2em var(--glow-spread-color),
 		inset 0 0 0.5em 0.25em var(--glow-color);
 }
+
+.rainbow {
+	font-family: monospace;
+	letter-spacing: 5px;
+	text-decoration: underline;
+}
+
+.rainbow-text-animated {
+	background: linear-gradient(to right, #6666ff, #0099ff, #00ff00, #ff3399, #6666ff);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	animation: rainbow_animation 6s ease-in-out infinite;
+	background-size: 400% 100%;
+}
+
+@keyframes rainbow_animation {
+	0%,
+	100% {
+		background-position: 0 0;
+	}
+	50% {
+		background-position: 100% 0;
+	}
+}
