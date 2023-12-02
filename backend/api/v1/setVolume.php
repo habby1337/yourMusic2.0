@@ -28,13 +28,13 @@ $options = [
 
 $api = new SpotifyWebAPI\SpotifyWebAPI($options, $session);
 
-$volume = $api->getMyCurrentPlaybackInfo()->device->volume_percent;
+// $volume = $api->getMyCurrentPlaybackInfo()->device->volume_percent;
 
-$volume += $_GET['v'];
+$volume = $_GET['v'];
 if ($volume > 100) {
     $volume = 100;
 } else if ($volume < 0) {
     $volume = 0;
 }
 
-var_dump($api->changeVolume(['volume_percent' => $volume,]));
+var_dump($api->changeVolume(['volume_percent' => $volume]));
