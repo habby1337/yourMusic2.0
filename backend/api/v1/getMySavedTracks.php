@@ -23,17 +23,18 @@ $options = [
 
 
 
-$limit = $_GET['limit'];
-$offset = $_GET['offset'];
+$limit = 10;
+$offset = 0;
 
-
-if($limit == null) {
-    $limit = 10;
+if(isset($_GET['limit'])) {
+    $limit = intval($_GET["limit"]);
 }
 
-if($offset == null) {
-    $offset = 0;
+if(isset($_GET["offset"])) {
+    $offset = intval($_GET["offset"]);
 }
+    
+
 
 $api = new SpotifyWebAPI\SpotifyWebAPI($options, $session);
 
