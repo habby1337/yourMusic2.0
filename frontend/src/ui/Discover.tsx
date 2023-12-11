@@ -54,10 +54,14 @@ export const GenreCard = ({ title, description, imageUrl, trackUri, width }: gen
 	}, [isInView]);
 
 	const [processedImageUrl, setProcessedImageUrl] = useState<string>("");
+	const [isLoadingImage, setIsLoadingImage] = useState<boolean>(false);
+	const placeHolderImage = "https://richphp.com/css-cover-music-loading-screen.png";
 
 	useEffect(() => {
 		if (trackUri === "") return;
 		if (imageUrl !== undefined) return setProcessedImageUrl(imageUrl);
+
+		setIsLoadingImage(true);
 
 		const parsedTrackUri = trackUri.split("PL=")[1];
 
@@ -68,8 +72,9 @@ export const GenreCard = ({ title, description, imageUrl, trackUri, width }: gen
 			.then((data: getPlaylistImageResponse[]) => {
 				setProcessedImageUrl(data[0].url);
 				// setImageUrl(data.images[0].url);
-			});
-	}, [trackUri, imageUrl, !isInView]);
+			})
+			.finally(() => setIsLoadingImage(false));
+	}, [trackUri, imageUrl, isInView]);
 
 	return (
 		<motion.div ref={cardRef} initial={{ opacity: 0 }} animate={controls} transition={{ duration: 0.6 }}>
@@ -78,20 +83,24 @@ export const GenreCard = ({ title, description, imageUrl, trackUri, width }: gen
 				className={`cursor-pointer ${width}   relative overflow-clip border-0 bg-neutral-800 rounded-3xl aspect-square `}
 			>
 				<div className="absolute z-20 flex top-0 backdrop-blur-[2px] text-white w-full font-semibold justify-center  bg-neutral-900 bg-opacity-60">
-					<div className="p-2 text-lg ">{title}</div>
+					<div className="p-2 pt-1 pb-1 text-lg ">{title}</div>
 				</div>
 
 				<div className="relative flex justify-center">
 					<img
-						src={processedImageUrl}
+						src={isLoadingImage ? placeHolderImage : processedImageUrl}
 						alt=""
 						className="absolute z-10 self-center w-48 opacity-80 rounded-2xl snap-center aspect-square"
 					/>
-					<img src={processedImageUrl} alt="" className="z-0 self-center w-full blur-xl aspect-square " />
+					<img
+						src={isLoadingImage ? placeHolderImage : processedImageUrl}
+						alt=""
+						className="z-0 self-center w-full blur-xl aspect-square "
+					/>
 				</div>
 
-				<div className="absolute bottom-0 z-30 w-full p-3 text-left bg-opacity-50 bg-neutral-900 backdrop-blur-[2px]">
-					<CardDescription className="pt-1 text-sm text-white">{description}</CardDescription>
+				<div className="absolute bottom-0 z-30 w-full  pt-0 pb-1 text-left bg-opacity-50 bg-neutral-900 backdrop-blur-[2px]">
+					<CardDescription className="p-2 text-sm text-white">{description}</CardDescription>
 				</div>
 			</Card>
 		</motion.div>
