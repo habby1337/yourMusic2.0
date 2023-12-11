@@ -60,10 +60,21 @@ Go to `https://YourBeautifulFRONTEND.com` and enjoy the app. (every one can use 
 Go to `frontend/src/helpers/arrayList.ts` and add your playlist uri to the array. Follows the object structure:
  ```javascript
   {
-    title: "Playlist Title", // This will show up on the discover page and in the title of the page
-    description: "Playlist keywords", // This will show up on the discover page (keep it short max 4/5 words)
-    imageUrl: "https://imageurl.com/image.png", // Could be of any size, but keep it square (should be self explanatory what this is and where it shows up) 
-    trackUri: "PL=1TZ5ySqWeHGbEKoyDcBIj", // Check under for how to use it
+    // This will show up on the discover page and in the title of the page
+    /*(Required)*/ 
+    title: "Playlist Title", 
+
+    // This will show up on the discover page (keep it short max 4/5 words)
+    /*(Required)*/
+    description: "Playlist keywords", 
+
+    // Could be of any size, but keep it square 
+    /*(OPTIONAL) => automatically fetched from spotify */
+    imageUrl: "https://imageurl.com/image.png", 
+
+    // Check under for how to use it
+    /*(Required)*/
+    trackUri: "PL=1TZ5ySqWeHGbEKoyDcBIj", 
   },
   ```   
   - `trackUri`, this is the most important part, this is the uri of the playlist you want to add to the discover page. 
