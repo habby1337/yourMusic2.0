@@ -25,9 +25,9 @@ const Navigation = () => {
 
 	return (
 		<div className="flex gap-2 text-left">
-			<a href={data?.external_urls.spotify} target="_blank">
+			<a href={data?.external_urls.spotify} target="_blank" className="relative">
 				{data?.product === "premium" && (
-					<div className="absolute left-0 z-20 top-3 ">
+					<div className="absolute z-20 -left-4 ">
 						<div className="text-[10px] text-green-500 -rotate-45 font-extrabold bg-neutral-900  rounded-sm p-[1px]">
 							Premium
 						</div>
