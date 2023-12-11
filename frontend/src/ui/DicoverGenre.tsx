@@ -16,7 +16,7 @@ const DiscoverGenre = () => {
 
 	return (
 		<div className="container w-screen h-screen p-0">
-			<div className="sticky top-0 z-20 p-3 pb-4 bg-neutral-900 backdrop-blur-xl bg-opacity-30">
+			<div className="sticky top-0 z-50 p-3 pb-4 bg-neutral-900 backdrop-blur-xl bg-opacity-30">
 				<Navigation />
 				<SearchForm />
 			</div>
