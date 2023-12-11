@@ -52,4 +52,9 @@ export const genres: genre[] = [
 
 		trackUri: "PL=3zzxZtxlQrNmLh4f60MlZ6",
 	},
+	{
+		title: "🔱 ZYZZ's plan 🔱",
+		description: "Gym, Hardcore, pump up",
+		trackUri: "PL=5XYXyqTG8KgyuvHLUDObuZ",
+	},
 ];
