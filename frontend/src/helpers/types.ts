@@ -5,10 +5,22 @@ export interface genre {
 	trackUri: string;
 }
 
+export interface userResponse {
+	id: string;
+	display_name: string;
+	images: image[];
+	product: "free" | "premium";
+	external_urls: external_urls;
+}
+
 export interface trackSearchResult {
 	tracks: tracks;
 }
-
+export interface getPlaylistImageResponse {
+	url: string;
+	height: number | null;
+	width: number | null;
+}
 export interface tracks {
 	href: string;
 	items: track[];
