@@ -17,7 +17,8 @@ export const genres: genre[] = [
 	{
 		title: "Pop",
 		description: "allegra, orecchiabile, ballabile",
-		imageUrl: "https://seeded-session-images.scdn.co/v2/img/122/secondary/artist/3VJFJ0YTEGpo8E5lBO0qQ2/en",
+		imageUrl:
+			"https://assets2.sharedplaylists.cdn.crowds.dk/playlists/1a/93/34/sz300x300_pop-right-now-48f8839c5b.jpeg",
 		trackUri: "Top Italia",
 	},
 	{
@@ -41,7 +42,14 @@ export const genres: genre[] = [
 	{
 		title: "Dont hug a tree, plz",
 		description: "Beats that make my friends grab the chicken handle",
-		imageUrl: "https://i.scdn.co/image/ab67706c0000da84f0b02ff5dcfeacddf0030012",
+		// imageUrl: "https://i.scdn.co/image/ab67706c0000da84f0b02ff5dcfeacddf0030012",
+
 		trackUri: "PL=1TZ5ySqWeHGbEKoyDcBIjY",
+	},
+	{
+		title: "Study Concentration",
+		description: "Entering Hyper-focus, Deep House, Techno",
+
+		trackUri: "PL=3zzxZtxlQrNmLh4f60MlZ6",
 	},
 ];
