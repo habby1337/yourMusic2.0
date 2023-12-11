@@ -31,7 +31,7 @@ $images = $api->me()->images;
 $external_urls = $api->me()->external_urls;
 $product = $api->me()->product;
 
-echo "<pre>";
+
 echo json_encode([
     "id" => $id,
     "display_name" => $display_name,
@@ -39,6 +39,6 @@ echo json_encode([
     "external_urls" => $external_urls,
     "product" => $product
 ]);
-echo "</pre>";
+
 
 ?>
