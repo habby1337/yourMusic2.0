@@ -58,11 +58,19 @@ export const GenreCard = ({ title, description, imageUrl, trackUri, width }: gen
 				onClick={() => navigate(`/discover/${trackUri}/${encodedTitle}`)}
 				className={`cursor-pointer ${width}  h-[15rem] relative overflow-clip border-0 bg-neutral-800 rounded-3xl flex-none `}
 			>
-				<div className="absolute flex radial-bg  backdrop-blur-[1px] text-white w-full h-48 font-bold justify-center items-center rounded-b-3xl">
+				<div className="absolute flex radial-bg  backdrop-blur-[2px] text-white w-full h-48 font-bold justify-center items-center rounded-b-3xl">
 					<div className="text-lg ">{title}</div>
 				</div>
-				<img src={imageUrl} alt="" className="w-full h-48 rounded-b-3xl" />
-				<div className="p-3 pt-0 ">
+				<div className="relative flex justify-center">
+					<img
+						src={imageUrl}
+						alt=""
+						className="absolute z-10 self-center w-48 opacity-80 rounded-2xl snap-center aspect-square"
+					/>
+					<img src={imageUrl} alt="" className="z-0 self-center w-full blur-xl aspect-square " />
+				</div>
+
+				<div className="absolute bottom-0 z-20 w-full p-3 text-left bg-opacity-50 bg-neutral-900 ">
 					<CardDescription className="pt-1 text-sm text-white">{description}</CardDescription>
 				</div>
 			</Card>
