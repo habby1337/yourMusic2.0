@@ -3,6 +3,8 @@ require $_SERVER["DOCUMENT_ROOT"] . '/vendor/autoload.php';
 include 'cors_middleware.php';
 
 
+
+
 $session = new SpotifyWebAPI\Session(
     getenv("spotify_client_id"),
     getenv("spotify_client_secret")
@@ -36,17 +38,19 @@ if(!in_array($type, $types)) {
     exit();
 }
 
-$limit = $_GET['limit'];
+$limit = 10;
 
-if($limit == null) {
-    $limit = 10;
+if(isset($_GET['limit'])) {
+    $limit = intval($_GET["limit"]);
 }
 
-$offset = $_GET['offset'];
+$offset = 0;
 
-if($offset == null) {
-    $offset = 0;
+if(isset($_GET['offset'])) {
+    $offset = intval($_GET["offset"]);
 }
+
+
 
 try {
 $myTop = $api->getMyTop($type, [
