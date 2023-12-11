@@ -22,6 +22,11 @@ $playlist = $api->getPlaylist('PLAYLIST_ID');
 echo $playlist->name;
 ```
 
+## Getting the image of a user's playlist
+```php
+$playlistImage = $api->getPlaylistImage('PLAYLIST_ID');
+```
+
 ## Getting all tracks in a playlist
 
 ```php
@@ -37,7 +42,7 @@ foreach ($playlistTracks->items as $track) {
 ## Creating a new playlist
 
 ```php
-$api->createPlaylist([
+$api->createPlaylist('USER_ID', [
     'name' => 'My shiny playlist'
 ]);
 ```

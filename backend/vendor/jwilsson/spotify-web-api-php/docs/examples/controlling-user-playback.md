@@ -37,7 +37,12 @@ $api->next();
 
 ## Adding a track to the queue
 ```php
-$api->queue();
+$api->queue('TRACK_ID');
+```
+
+## Get info about the queue
+```php
+$api->getMyQueue();
 ```
 
 ## Get the currently playing track

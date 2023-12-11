@@ -4,29 +4,30 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "52ece6b3ebdaf9e59f367074c7913f7a",
+    "content-hash": "d517947c202008d6fe48958a776440f0",
     "packages": [
         {
             "name": "jwilsson/spotify-web-api-php",
-            "version": "3.6.2",
+            "version": "6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jwilsson/spotify-web-api-php.git",
-                "reference": "0d259539545726fa6ba2b2bda36b427496157602"
+                "reference": "a75f78d5c27a71eeae4682e6299a83dbb67a6093"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jwilsson/spotify-web-api-php/zipball/0d259539545726fa6ba2b2bda36b427496157602",
-                "reference": "0d259539545726fa6ba2b2bda36b427496157602",
+                "url": "https://api.github.com/repos/jwilsson/spotify-web-api-php/zipball/a75f78d5c27a71eeae4682e6299a83dbb67a6093",
+                "reference": "a75f78d5c27a71eeae4682e6299a83dbb67a6093",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "php": "^7.0"
+                "php": "^8.1"
             },
             "require-dev": {
-                "php-coveralls/php-coveralls": "^2.0",
-                "phpunit/phpunit": "^6.0",
+                "php-coveralls/php-coveralls": "^2.5",
+                "php-mock/php-mock-phpunit": "^2.7",
+                "phpunit/phpunit": "^10.2",
                 "squizlabs/php_codesniffer": "^3.0"
             },
             "type": "library",
@@ -52,9 +53,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jwilsson/spotify-web-api-php/issues",
-                "source": "https://github.com/jwilsson/spotify-web-api-php/tree/3.6.2"
+                "source": "https://github.com/jwilsson/spotify-web-api-php/tree/6.0.1"
             },
-            "time": "2020-10-19T19:41:24+00:00"
+            "time": "2023-08-01T17:40:53+00:00"
         }
     ],
     "packages-dev": [],

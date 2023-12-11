@@ -1,5 +1,27 @@
 # Session
 
+## Table of Contents
+* [__construct](#__construct)
+* [generateCodeChallenge](#generatecodechallenge)
+* [generateCodeVerifier](#generatecodeverifier)
+* [generateState](#generatestate)
+* [getAuthorizeUrl](#getauthorizeurl)
+* [getAccessToken](#getaccesstoken)
+* [getClientId](#getclientid)
+* [getClientSecret](#getclientsecret)
+* [getTokenExpiration](#gettokenexpiration)
+* [getRedirectUri](#getredirecturi)
+* [getRefreshToken](#getrefreshtoken)
+* [getScope](#getscope)
+* [refreshAccessToken](#refreshaccesstoken)
+* [requestAccessToken](#requestaccesstoken)
+* [requestCredentialsToken](#requestcredentialstoken)
+* [setAccessToken](#setaccesstoken)
+* [setClientId](#setclientid)
+* [setClientSecret](#setclientsecret)
+* [setRedirectUri](#setredirecturi)
+* [setRefreshToken](#setrefreshtoken)
+
 ## Constants
 
 ## Methods
@@ -32,7 +54,7 @@ Generate a code challenge from a code verifier for use with the PKCE flow.
 
 #### Arguments
 * `$codeVerifier` **string** - The code verifier to create a challenge from.
-* `$hashAlgo` **string** - Optional. The hash algorithm to use. Defaults to &quot;sha256&quot;.
+* `$hashAlgo` **string** - Optional. The hash algorithm to use. Defaults to "sha256".
 
 #### Return values
 * **string** The code challenge.
@@ -48,10 +70,26 @@ Session::generateCodeVerifier($length)
 Generate a code verifier for use with the PKCE flow.
 
 #### Arguments
-* `$length` **integer** - Optional. Code verifier length. Must be between 43 and 128 characters long, default is 128.
+* `$length` **int** - Optional. Code verifier length. Must be between 43 and 128 characters long, default is 128.
 
 #### Return values
 * **string** A code verifier string.
+
+---
+### generateState
+
+
+```php
+Session::generateState($length)
+```
+
+Generate a random state value.
+
+#### Arguments
+* `$length` **int** - Optional. Length of the state. Default is 16 characters.
+
+#### Return values
+* **string** A random state value.
 
 ---
 ### getAuthorizeUrl
@@ -69,7 +107,6 @@ Get the authorization URL.
     * array scope Optional. Scope(s) to request from the user.
     * boolean show_dialog Optional. Whether or not to force the user to always approve the app. Default is false.
     * string state Optional. A CSRF token.
-
 
 #### Return values
 * **string** The authorization URL.
@@ -128,7 +165,7 @@ Get the access token expiration time.
 
 
 #### Return values
-* **integer** A Unix timestamp indicating the token expiration time.
+* **int** A Unix timestamp indicating the token expiration time.
 
 ---
 ### getRedirectUri
@@ -186,7 +223,7 @@ Refresh an access token.
 * `$refreshToken` **string** - Optional. The refresh token to use.
 
 #### Return values
-* **boolean** Whether the access token was successfully refreshed.
+* **bool** Whether the access token was successfully refreshed.
 
 ---
 ### requestAccessToken
@@ -203,7 +240,7 @@ Request an access token given an authorization code.
 * `$codeVerifier` **string** - Optional. A previously generated code verifier. Will assume a PKCE flow if passed.
 
 #### Return values
-* **boolean** True when the access token was successfully granted, false otherwise.
+* **bool** True when the access token was successfully granted, false otherwise.
 
 ---
 ### requestCredentialsToken
@@ -217,7 +254,7 @@ Request an access token using the Client Credentials Flow.
 
 
 #### Return values
-* **boolean** True when an access token was successfully granted, false otherwise.
+* **bool** True when an access token was successfully granted, false otherwise.
 
 ---
 ### setAccessToken
@@ -233,7 +270,7 @@ Set the access token.
 * `$accessToken` **string** - The access token
 
 #### Return values
-* **void** 
+* **self** 
 
 ---
 ### setClientId
@@ -249,7 +286,7 @@ Set the client ID.
 * `$clientId` **string** - The client ID.
 
 #### Return values
-* **void** 
+* **self** 
 
 ---
 ### setClientSecret
@@ -265,7 +302,7 @@ Set the client secret.
 * `$clientSecret` **string** - The client secret.
 
 #### Return values
-* **void** 
+* **self** 
 
 ---
 ### setRedirectUri
@@ -281,7 +318,7 @@ Set the client's redirect URI.
 * `$redirectUri` **string** - The redirect URI.
 
 #### Return values
-* **void** 
+* **self** 
 
 ---
 ### setRefreshToken
@@ -297,6 +334,6 @@ Set the session's refresh token.
 * `$refreshToken` **string** - The refresh token.
 
 #### Return values
-* **void** 
+* **self** 
 
 ---

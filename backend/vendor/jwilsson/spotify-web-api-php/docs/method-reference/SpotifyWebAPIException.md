@@ -1,5 +1,11 @@
 # SpotifyWebAPIException
 
+## Table of Contents
+* [getReason](#getreason)
+* [hasExpiredToken](#hasexpiredtoken)
+* [isRateLimited](#isratelimited)
+* [setReason](#setreason)
+
 ## Constants
 * **TOKEN_EXPIRED**
 * **RATE_LIMIT_STATUS**
@@ -12,7 +18,7 @@
 SpotifyWebAPIException::getReason()
 ```
 
-Returns the reason string from the request's error object.
+Returns the reason string from a player request's error object.
 
 
 #### Return values
@@ -30,7 +36,7 @@ Returns whether the exception was thrown because of an expired access token.
 
 
 #### Return values
-* **boolean** 
+* **bool** 
 
 ---
 ### isRateLimited
@@ -44,7 +50,7 @@ Returns whether the exception was thrown because of rate limiting.
 
 
 #### Return values
-* **boolean** 
+* **bool** 
 
 ---
 ### setReason

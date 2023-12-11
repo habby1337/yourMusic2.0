@@ -7,7 +7,7 @@ The `message` property will be set to the error message returned by the Spotify 
 ```php
 try {
     $track = $api->getTrack('non-existing-track');
-} catch (SpotifyWebAPIException $e) {
+} catch (SpotifyWebAPI\SpotifyWebAPIException $e) {
     echo 'Spotify API Error: ' . $e->getCode(); // Will be 404
 }
 ```
@@ -22,7 +22,7 @@ When the access token has expired you'll get an error back. The `SpotifyWebAPIEx
 ```php
 try {
     $track = $api->me();
-} catch (SpotifyWebAPIException $e) {
+} catch (SpotifyWebAPI\SpotifyWebAPIException $e) {
     if ($e->hasExpiredToken()) {
         // Refresh the access token
     } else {
@@ -43,15 +43,15 @@ Here's an example of how to handle this:
 ```php
 try {
     $track = $api->getTrack('7EjyzZcbLxW7PaaLua9Ksb');
-} catch (SpotifyWebAPIException $e) {
+} catch (SpotifyWebAPI\SpotifyWebAPIException $e) {
     if ($e->getCode() == 429) { // 429 is Too Many Requests
         $lastResponse = $api->getRequest()->getLastResponse();
 
-        $retryAfter = $lastResponse['headers']['Retry-After']; // Number of seconds to wait before sending another request
+        $retryAfter = $lastResponse['headers']['retry-after']; // Number of seconds to wait before sending another request
     } else {
         // Some other kind of error
     }
 }
 ```
 
-Read more about the exact mechanics of rate limiting in the [Spotify API docs](https://developer.spotify.com/documentation/web-api/#rate-limiting).
+Read more about the exact mechanics of rate limiting in the [Spotify API docs](https://developer.spotify.com/documentation/web-api/guides/rate-limits/).

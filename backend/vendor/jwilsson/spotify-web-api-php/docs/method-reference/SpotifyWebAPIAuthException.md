@@ -1,5 +1,13 @@
 # SpotifyWebAPIAuthException
 
+## Table of Contents
+* [hasInvalidCredentials](#hasinvalidcredentials)
+* [hasInvalidRefreshToken](#hasinvalidrefreshtoken)
+* [getReason](#getreason)
+* [hasExpiredToken](#hasexpiredtoken)
+* [isRateLimited](#isratelimited)
+* [setReason](#setreason)
+
 ## Constants
 * **INVALID_CLIENT**
 * **INVALID_CLIENT_SECRET**
@@ -19,7 +27,7 @@ Returns whether the exception was thrown because of invalid credentials.
 
 
 #### Return values
-* **boolean** 
+* **bool** 
 
 ---
 ### hasInvalidRefreshToken
@@ -33,7 +41,7 @@ Returns whether the exception was thrown because of an invalid refresh token.
 
 
 #### Return values
-* **boolean** 
+* **bool** 
 
 ---
 ### getReason
@@ -43,7 +51,7 @@ Returns whether the exception was thrown because of an invalid refresh token.
 SpotifyWebAPIAuthException::getReason()
 ```
 
-Returns the reason string from the request's error object.
+Returns the reason string from a player request's error object.
 
 
 #### Return values
@@ -61,7 +69,7 @@ Returns whether the exception was thrown because of an expired access token.
 
 
 #### Return values
-* **boolean** 
+* **bool** 
 
 ---
 ### isRateLimited
@@ -75,7 +83,7 @@ Returns whether the exception was thrown because of rate limiting.
 
 
 #### Return values
-* **boolean** 
+* **bool** 
 
 ---
 ### setReason

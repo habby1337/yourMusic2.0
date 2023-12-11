@@ -1,21 +1,19 @@
 <?php
+
+declare(strict_types=1);
+
 namespace SpotifyWebAPI;
 
 class Request
 {
-    const ACCOUNT_URL = 'https://accounts.spotify.com';
-    const API_URL = 'https://api.spotify.com';
+    public const ACCOUNT_URL = 'https://accounts.spotify.com';
+    public const API_URL = 'https://api.spotify.com';
 
-    const RETURN_ASSOC = 'assoc';
-    const RETURN_OBJECT = 'object';
-
-    protected $curlOptions = [];
-    protected $lastResponse = [];
-    protected $options = [
+    protected array $lastResponse = [];
+    protected array $options = [
         'curl_options' => [],
         'return_assoc' => false,
     ];
-    protected $returnType = self::RETURN_OBJECT;
 
     /**
      * Constructor
@@ -23,36 +21,29 @@ class Request
      *
      * @param array|object $options Optional. Options to set.
      */
-    public function __construct($options = [])
+    public function __construct(array|object $options = [])
     {
         $this->setOptions($options);
     }
 
     /**
-     * Parse the response body and handle API errors.
+     * Handle response errors.
      *
      * @param string $body The raw, unparsed response body.
-     * @param int $status The HTTP status code, used to see if additional error handling is needed.
+     * @param int $status The HTTP status code, passed along to any exceptions thrown.
      *
      * @throws SpotifyWebAPIException
      * @throws SpotifyWebAPIAuthException
      *
-     * @return array|object The parsed response body. Type is controlled by the `return_assoc` option.
+     * @return void
      */
-    protected function parseBody($body, $status)
+    protected function handleResponseError(string $body, int $status): void
     {
-        $returnAssoc = $this->returnType == self::RETURN_ASSOC || $this->options['return_assoc'];
-        $this->lastResponse['body'] = json_decode($body, $returnAssoc);
-
-        if ($status >= 200 && $status <= 299) {
-            return $this->lastResponse['body'];
-        }
-
-        $body = json_decode($body);
-        $error = $body->error ?? null;
+        $parsedBody = json_decode($body);
+        $error = $parsedBody->error ?? null;
 
         if (isset($error->message) && isset($error->status)) {
-            // API call error
+            // It's an API call error
             $exception = new SpotifyWebAPIException($error->message, $error->status);
 
             if (isset($error->reason)) {
@@ -60,33 +51,36 @@ class Request
             }
 
             throw $exception;
-        } elseif (isset($body->error_description)) {
-            // Auth call error
-            throw new SpotifyWebAPIAuthException($body->error_description, $status);
+        } elseif (isset($parsedBody->error_description)) {
+            // It's an auth call error
+            throw new SpotifyWebAPIAuthException($parsedBody->error_description, $status);
+        } elseif ($body) {
+            // Something else went wrong, try to give at least some info
+            throw new SpotifyWebAPIException($body, $status);
         } else {
-            // Something went really wrong
+            // Something went really wrong, we don't know what
             throw new SpotifyWebAPIException('An unknown error occurred.', $status);
         }
     }
 
     /**
-     * Parse HTTP response headers.
+     * Parse HTTP response headers and normalize names.
      *
      * @param string $headers The raw, unparsed response headers.
      *
      * @return array Headers as key–value pairs.
      */
-    protected function parseHeaders($headers)
+    protected function parseHeaders(string $headers): array
     {
-        $headers = str_replace("\r\n", "\n", $headers);
         $headers = explode("\n", $headers);
 
         array_shift($headers);
 
         $parsedHeaders = [];
         foreach ($headers as $header) {
-            list($key, $value) = explode(':', $header, 2);
+            [$key, $value] = explode(':', $header, 2);
 
+            $key = strtolower($key);
             $parsedHeaders[$key] = trim($value);
         }
 
@@ -98,7 +92,7 @@ class Request
      *
      * @param string $method The HTTP method to use.
      * @param string $uri The URI to request.
-     * @param array $parameters Optional. Query string parameters or HTTP body, depending on $method.
+     * @param string|array $parameters Optional. Query string parameters or HTTP body, depending on $method.
      * @param array $headers Optional. HTTP headers.
      *
      * @throws SpotifyWebAPIException
@@ -110,7 +104,7 @@ class Request
      * - int status HTTP status code.
      * - string url The requested URL.
      */
-    public function account($method, $uri, $parameters = [], $headers = [])
+    public function account(string $method, string $uri, string|array $parameters = [], array $headers = []): array
     {
         return $this->send($method, self::ACCOUNT_URL . $uri, $parameters, $headers);
     }
@@ -120,7 +114,7 @@ class Request
      *
      * @param string $method The HTTP method to use.
      * @param string $uri The URI to request.
-     * @param array $parameters Optional. Query string parameters or HTTP body, depending on $method.
+     * @param string|array $parameters Optional. Query string parameters or HTTP body, depending on $method.
      * @param array $headers Optional. HTTP headers.
      *
      * @throws SpotifyWebAPIException
@@ -132,7 +126,7 @@ class Request
      * - int status HTTP status code.
      * - string url The requested URL.
      */
-    public function api($method, $uri, $parameters = [], $headers = [])
+    public function api(string $method, string $uri, string|array $parameters = [], array $headers = []): array
     {
         return $this->send($method, self::API_URL . $uri, $parameters, $headers);
     }
@@ -146,26 +140,9 @@ class Request
      * - int status HTTP status code.
      * - string url The requested URL.
      */
-    public function getLastResponse()
+    public function getLastResponse(): array
     {
         return $this->lastResponse;
-    }
-
-    /**
-     * Get a value indicating the response body type.
-     *
-     * @deprecated Use the `return_assoc` option instead.
-     *
-     * @return string A value indicating if the response body is an object or associative array.
-     */
-    public function getReturnType()
-    {
-        trigger_error(
-            'Request::setReturnType() is deprecated. Use the `return_assoc` option instead.',
-            E_USER_DEPRECATED
-        );
-
-        return $this->returnType;
     }
 
     /**
@@ -174,7 +151,7 @@ class Request
      *
      * @param string $method The HTTP method to use.
      * @param string $url The URL to request.
-     * @param array $parameters Optional. Query string parameters or HTTP body, depending on $method.
+     * @param string|array|object $parameters Optional. Query string parameters or HTTP body, depending on $method.
      * @param array $headers Optional. HTTP headers.
      *
      * @throws SpotifyWebAPIException
@@ -186,30 +163,29 @@ class Request
      * - int status HTTP status code.
      * - string url The requested URL.
      */
-    public function send($method, $url, $parameters = [], $headers = [])
+    public function send(string $method, string $url, string|array|object $parameters = [], array $headers = []): array
     {
         // Reset any old responses
         $this->lastResponse = [];
 
         // Sometimes a stringified JSON object is passed
         if (is_array($parameters) || is_object($parameters)) {
-            $parameters = http_build_query($parameters, null, '&');
-        }
-
-        $mergedHeaders = [];
-        foreach ($headers as $key => $val) {
-            $mergedHeaders[] = "$key: $val";
+            $parameters = http_build_query($parameters, '', '&');
         }
 
         $options = [
             CURLOPT_CAINFO => __DIR__ . '/cacert.pem',
             CURLOPT_ENCODING => '',
             CURLOPT_HEADER => true,
-            CURLOPT_HTTPHEADER => $mergedHeaders,
+            CURLOPT_HTTPHEADER => [],
             CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_URL => rtrim($url, '/'),
         ];
 
-        $url = rtrim($url, '/');
+        foreach ($headers as $key => $val) {
+            $options[CURLOPT_HTTPHEADER][] = "$key: $val";
+        }
+
         $method = strtoupper($method);
 
         switch ($method) {
@@ -228,71 +204,46 @@ class Request
                 $options[CURLOPT_CUSTOMREQUEST] = $method;
 
                 if ($parameters) {
-                    $url .= '/?' . $parameters;
+                    $options[CURLOPT_URL] .= '/?' . $parameters;
                 }
 
                 break;
         }
 
-        $options[CURLOPT_URL] = $url;
-
         $ch = curl_init();
 
-        if ($this->curlOptions) {
-            curl_setopt_array($ch, array_replace($options, $this->curlOptions));
-        } else {
-            curl_setopt_array($ch, array_replace($options, $this->options['curl_options']));
-        }
+        curl_setopt_array($ch, array_replace($options, $this->options['curl_options']));
 
         $response = curl_exec($ch);
 
         if (curl_error($ch)) {
-            throw new SpotifyWebAPIException('cURL transport error: ' . curl_errno($ch) . ' ' .  curl_error($ch));
+            $error = curl_error($ch);
+            $errno = curl_errno($ch);
+            curl_close($ch);
+
+            throw new SpotifyWebAPIException('cURL transport error: ' . $errno . ' ' . $error);
         }
 
-        list($headers, $body) = explode("\r\n\r\n", $response, 2);
+        [$headers, $body] = $this->splitResponse($response);
 
-        // Skip the first set of headers for proxied requests
-        if (preg_match('/^HTTP\/1\.\d 200 Connection established$/', $headers) === 1) {
-            list($headers, $body) = explode("\r\n\r\n", $body, 2);
-        }
-
-        $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $headers = $this->parseHeaders($headers);
+        $parsedBody = json_decode($body, $this->options['return_assoc']);
+        $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $parsedHeaders = $this->parseHeaders($headers);
 
         $this->lastResponse = [
-            'headers' => $headers,
+            'body' => $parsedBody,
+            'headers' => $parsedHeaders,
             'status' => $status,
             'url' => $url,
         ];
 
-        // Run this separately since it might throw
-        $this->parseBody($body, $status);
-
         curl_close($ch);
 
+        if ($status >= 400) {
+            $this->handleResponseError($body, $status);
+        }
+
         return $this->lastResponse;
-    }
-
-    /**
-     * Set custom cURL options.
-     *
-     * @deprecated Use the `curl_options` option instead.
-     *
-     * Any options passed here will be merged with the defaults, overriding existing ones.
-     *
-     * @param array $options Any available cURL option.
-     *
-     * @return void
-     */
-    public function setCurlOptions($options)
-    {
-        trigger_error(
-            'Request::setCurlOptions() is deprecated. Use the `curl_options` option instead.',
-            E_USER_DEPRECATED
-        );
-
-        $this->curlOptions = $options;
     }
 
     /**
@@ -300,29 +251,42 @@ class Request
      *
      * @param array|object $options Options to set.
      *
-     * @return void
+     * @return self
      */
-    public function setOptions($options)
+    public function setOptions(array|object $options): self
     {
         $this->options = array_merge($this->options, (array) $options);
+
+        return $this;
     }
 
     /**
-     * Set the return type for the response body.
+     * Split response into headers and body, taking proxy response headers etc. into account.
      *
-     * @deprecated Use the `return_assoc` option instead.
+     * @param string $response The complete response.
      *
-     * @param string $returnType One of the `Request::RETURN_*` constants.
-     *
-     * @return void
+     * @return array An array consisting of two elements, headers and body.
      */
-    public function setReturnType($returnType)
+    protected function splitResponse(string $response): array
     {
-        trigger_error(
-            'Request::setReturnType() is deprecated. Use the `return_assoc` option instead.',
-            E_USER_DEPRECATED
-        );
+        $response = str_replace("\r\n", "\n", $response);
+        $parts = explode("\n\n", $response, 3);
 
-        $this->returnType = $returnType;
+        // Skip first set of headers for proxied requests etc.
+        if (
+            preg_match('/^HTTP\/1.\d 100 Continue/', $parts[0]) ||
+            preg_match('/^HTTP\/1.\d 200 Connection established/', $parts[0]) ||
+            preg_match('/^HTTP\/1.\d 200 Tunnel established/', $parts[0])
+        ) {
+            return [
+                $parts[1],
+                $parts[2],
+            ];
+        }
+
+        return [
+            $parts[0],
+            $parts[1],
+        ];
     }
 }

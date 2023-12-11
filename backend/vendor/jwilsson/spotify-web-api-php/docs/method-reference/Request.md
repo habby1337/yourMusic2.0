@@ -1,10 +1,16 @@
 # Request
 
+## Table of Contents
+* [__construct](#__construct)
+* [account](#account)
+* [api](#api)
+* [getLastResponse](#getlastresponse)
+* [send](#send)
+* [setOptions](#setoptions)
+
 ## Constants
 * **ACCOUNT_URL**
 * **API_URL**
-* **RETURN_ASSOC**
-* **RETURN_OBJECT**
 
 ## Methods
 ### __construct
@@ -34,7 +40,7 @@ Make a request to the "account" endpoint.
 #### Arguments
 * `$method` **string** - The HTTP method to use.
 * `$uri` **string** - The URI to request.
-* `$parameters` **array** - Optional. Query string parameters or HTTP body, depending on $method.
+* `$parameters` **string\|array** - Optional. Query string parameters or HTTP body, depending on $method.
 * `$headers` **array** - Optional. HTTP headers.
 
 #### Return values
@@ -57,7 +63,7 @@ Make a request to the "api" endpoint.
 #### Arguments
 * `$method` **string** - The HTTP method to use.
 * `$uri` **string** - The URI to request.
-* `$parameters` **array** - Optional. Query string parameters or HTTP body, depending on $method.
+* `$parameters` **string\|array** - Optional. Query string parameters or HTTP body, depending on $method.
 * `$headers` **array** - Optional. HTTP headers.
 
 #### Return values
@@ -86,21 +92,6 @@ Get the latest full response from the Spotify API.
     * string url The requested URL.
 
 ---
-### getReturnType
-
-_Deprecated_
-
-```php
-Request::getReturnType()
-```
-
-Use the `return_assoc` option instead.
-
-
-#### Return values
-* **string** A value indicating if the response body is an object or associative array.
-
----
 ### send
 
 
@@ -114,7 +105,7 @@ You'll probably want to use one of the convenience methods instead.
 #### Arguments
 * `$method` **string** - The HTTP method to use.
 * `$url` **string** - The URL to request.
-* `$parameters` **array** - Optional. Query string parameters or HTTP body, depending on $method.
+* `$parameters` **string\|array\|object** - Optional. Query string parameters or HTTP body, depending on $method.
 * `$headers` **array** - Optional. HTTP headers.
 
 #### Return values
@@ -123,25 +114,6 @@ You'll probably want to use one of the convenience methods instead.
     * array headers Response headers.
     * int status HTTP status code.
     * string url The requested URL.
-
----
-### setCurlOptions
-
-_Deprecated_
-
-```php
-Request::setCurlOptions($options)
-```
-
-Use the `curl_options` option instead.<br>
-<br>
-Any options passed here will be merged with the defaults, overriding existing ones.
-
-#### Arguments
-* `$options` **array** - Any available cURL option.
-
-#### Return values
-* **void** 
 
 ---
 ### setOptions
@@ -157,23 +129,6 @@ Set options
 * `$options` **array\|object** - Options to set.
 
 #### Return values
-* **void** 
-
----
-### setReturnType
-
-_Deprecated_
-
-```php
-Request::setReturnType($returnType)
-```
-
-Use the `return_assoc` option instead.
-
-#### Arguments
-* `$returnType` **string** - One of the Request::RETURN_* constants.
-
-#### Return values
-* **void** 
+* **self** 
 
 ---

@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'jwilsson/spotify-web-api-php' => array(
-            'pretty_version' => '3.6.2',
-            'version' => '3.6.2.0',
-            'reference' => '0d259539545726fa6ba2b2bda36b427496157602',
+            'pretty_version' => '6.0.1',
+            'version' => '6.0.1.0',
+            'reference' => 'a75f78d5c27a71eeae4682e6299a83dbb67a6093',
             'type' => 'library',
             'install_path' => __DIR__ . '/../jwilsson/spotify-web-api-php',
             'aliases' => array(),
