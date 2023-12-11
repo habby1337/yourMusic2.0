@@ -160,6 +160,11 @@ class Request
      */
     public function getReturnType()
     {
+        trigger_error(
+            'Request::setReturnType() is deprecated. Use the `return_assoc` option instead.',
+            E_USER_DEPRECATED
+        );
+
         return $this->returnType;
     }
 
@@ -188,7 +193,7 @@ class Request
 
         // Sometimes a stringified JSON object is passed
         if (is_array($parameters) || is_object($parameters)) {
-            $parameters = http_build_query($parameters);
+            $parameters = http_build_query($parameters, null, '&');
         }
 
         $mergedHeaders = [];
@@ -282,6 +287,11 @@ class Request
      */
     public function setCurlOptions($options)
     {
+        trigger_error(
+            'Request::setCurlOptions() is deprecated. Use the `curl_options` option instead.',
+            E_USER_DEPRECATED
+        );
+
         $this->curlOptions = $options;
     }
 
@@ -308,6 +318,11 @@ class Request
      */
     public function setReturnType($returnType)
     {
+        trigger_error(
+            'Request::setReturnType() is deprecated. Use the `return_assoc` option instead.',
+            E_USER_DEPRECATED
+        );
+
         $this->returnType = $returnType;
     }
 }
