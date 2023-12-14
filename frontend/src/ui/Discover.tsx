@@ -24,7 +24,7 @@ const Title = () => {
 
 export const CardSlider = () => {
 	return (
-		<div className="flex flex-no-wrap items-start gap-5 pb-4 overflow-x-scroll scrolling-touch">
+		<div className="flex flex-no-wrap items-start gap-5 pb-4 overflow-x-scroll scrolling-touch ">
 			{genres.slice(0, 10).map((genre) => (
 				<GenreCard
 					title={genre.title}
@@ -77,10 +77,17 @@ export const GenreCard = ({ title, description, imageUrl, trackUri, width }: gen
 	}, [trackUri, imageUrl, isInView]);
 
 	return (
-		<motion.div ref={cardRef} initial={{ opacity: 0 }} animate={controls} transition={{ duration: 0.6 }}>
+		<motion.div
+			ref={cardRef}
+			initial={{ opacity: 0 }}
+			animate={controls}
+			transition={{ duration: 0.6 }}
+			className=""
+			style={{ zIndex: 0 }}
+		>
 			<Card
 				onClick={() => navigate(`/discover/${trackUri}/${encodedTitle}`)}
-				className={`cursor-pointer ${width}   relative overflow-clip border-0 bg-neutral-800 rounded-3xl aspect-square `}
+				className={`cursor-pointer ${width} relative overflow-clip border-0 bg-neutral-800 rounded-3xl aspect-square `}
 			>
 				<div className="absolute z-20 flex top-0 backdrop-blur-[2px] text-white w-full font-semibold justify-center  bg-neutral-900 bg-opacity-60">
 					<div className="p-2 pt-1 pb-1 text-lg ">{title}</div>

@@ -69,7 +69,7 @@ const SearchModal = ({
 	};
 
 	return (
-		<>
+		<div className="z-50">
 			<AnimatePresence>
 				{show && (
 					<motion.div
@@ -111,11 +111,12 @@ const SearchModal = ({
 							</button>
 							{/* )} */}
 						</motion.div>
+
 						<ResultTrackList data={data} isLoading={isLoading} error={error as Error} isError={isError} />
 					</motion.div>
 				)}
 			</AnimatePresence>
-		</>
+		</div>
 	);
 };
 
@@ -135,7 +136,7 @@ const ResultTrackList = ({
 	// error = "TypeError: NetworkError when attempting to fetch resource.";
 	if (isError) {
 		return (
-			<div className="flex flex-col items-center justify-center mt-16 text-center h-1/2 text-neutral-400 ">
+			<div className="z-10 flex flex-col items-center justify-center mt-16 text-center h-1/2 text-neutral-400">
 				<ServerOff size={60} strokeWidth={2} className="mb-4 text-neutral-300 opacity-30 mix-blend-exclusion" />
 				<p className="font-medium">The server might be sleeping at this moment... </p>
 
@@ -151,7 +152,7 @@ const ResultTrackList = ({
 	}
 	if (!data?.tracks && !isLoading) {
 		return (
-			<div className="flex flex-col items-center justify-center text-center h-1/2">
+			<div style={{ zIndex: 9999 }} className="flex flex-col items-center justify-center text-center h-1/2">
 				<Music size={60} strokeWidth={2} className="mb-4 text-neutral-300 opacity-30 mix-blend-exclusion" />
 				<p className="text-2xl font-semibold text-neutral-300 opacity-20 mix-blend-exclusion ">
 					Start typing to get results
