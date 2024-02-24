@@ -1,38 +1,44 @@
-export interface genre {
+export interface Genre {
 	title: string;
 	description: string;
 	imageUrl?: string;
 	trackUri: string;
 }
 
-export interface userResponse {
+export enum ProductType {
+	Free = "free",
+	Premium = "premium",
+}
+
+export interface UserResponse {
 	id: string;
 	display_name: string;
-	images: image[];
-	product: "free" | "premium";
-	external_urls: external_urls;
+	images: Image[];
+	product: ProductType;
+	external_urls: ExternalUrls;
 }
 
-export interface trackSearchResult {
-	tracks: tracks;
+export interface TrackSearchResult {
+	tracks: Tracks;
 }
 
-export interface playlistSearchResult {
-	items: playlistItem[];
+export interface PlaylistSearchResult {
+	items: PlaylistItem[];
 }
 
-export interface playlistItem extends track {
-	track: track;
+export interface PlaylistItem extends Track {
+	track: Track;
 }
 
-export interface getPlaylistImageResponse {
+export interface GetPlaylistImageResponse {
 	url: string;
-	height: number | null;
-	width: number | null;
+	height?: number | null;
+	width?: number | null;
 }
-export interface tracks {
+
+export interface Tracks {
 	href: string;
-	items: track[];
+	items: Track[];
 	limit: number;
 	next: string;
 	offset: number;
@@ -40,34 +46,34 @@ export interface tracks {
 	total: number;
 }
 
-export interface track {
-	album: album;
-	artists: artist[];
+export interface Track {
+	album: Album;
+	artists: Artist[];
 	available_markets: string[];
 	disc_number: number;
 	duration_ms: number;
 	explicit: boolean;
-	external_ids: external_ids;
-	external_urls: external_urls;
+	external_ids: ExternalIds;
+	external_urls: ExternalUrls;
 	href: string;
 	id: string;
 	is_local: boolean;
 	name: string;
 	popularity: number;
-	preview_url: string;
+	preview_url: string | null; // Use null explicitly for potentially missing values
 	track_number: number;
 	type: string;
 	uri: string;
 }
 
-export interface album {
+export interface Album {
 	album_type: string;
-	artists: artist[];
+	artists: Artist[];
 	available_markets: string[];
-	external_urls: external_urls;
+	external_urls: ExternalUrls;
 	href: string;
 	id: string;
-	images: image[];
+	images: Image[];
 	name: string;
 	release_date: string;
 	release_date_precision: string;
@@ -76,29 +82,54 @@ export interface album {
 	uri: string;
 }
 
-export interface image {
+export interface Image {
 	height: number;
 	url: string;
 	width: number;
-	[key: string]: string | number;
 }
 
-export interface artist {
-	external_urls: external_urls;
+export interface Artist {
+	external_urls: ExternalUrls;
 	href: string;
 	id: string;
 	name: string;
 	type: string;
 	uri: string;
-	images: image[];
+	images: Image[];
 }
 
-export interface external_urls {
+export interface ExternalUrls {
 	spotify: string;
 	[key: string]: string;
 }
 
-export interface external_ids {
+export interface ExternalIds {
 	isrc: string;
 	[key: string]: string;
+}
+
+export interface CurrentPlayback {
+	actions: Actions;
+	context: Context;
+	currently_playing_type: string;
+	is_playing: boolean;
+	item: Track;
+	progress_ms: number;
+	timestamp: number;
+}
+
+export interface Actions {
+	disallows: {
+		resuming: boolean;
+		toggling_repeat_context: boolean;
+		toggling_repeat_track: boolean;
+		toggling_shuffle: boolean;
+	};
+}
+
+export interface Context {
+	external_urls: ExternalUrls;
+	href: string;
+	type: string;
+	uri: string;
 }

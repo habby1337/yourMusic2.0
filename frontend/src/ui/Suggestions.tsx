@@ -1,5 +1,5 @@
 import { ResultTrackItem, ResultTrackListSkeleton } from "./Search";
-import { artist, track } from "@/helpers/types";
+import { Artist, Track } from "@/helpers/types";
 import { useInfiniteQuery } from "react-query";
 import { generateRandomString } from "@/helpers/utils";
 import { API_URL } from "@/helpers/endpoints";
@@ -17,7 +17,7 @@ const Suggestions = () => {
 
 		const data = await response.json();
 
-		const suggestions = data.tracks.items.map((item: track) => ({
+		const suggestions = data.tracks.items.map((item: Track) => ({
 			id: item.id,
 			name: item.name,
 			uri: item.uri,
@@ -26,7 +26,7 @@ const Suggestions = () => {
 				name: item.album.name,
 				images: item.album.images,
 			},
-			artists: item.artists.map((artist: artist) => ({
+			artists: item.artists.map((artist: Artist) => ({
 				id: artist.id,
 				name: artist.name,
 				images: artist.images,
@@ -47,8 +47,8 @@ const Suggestions = () => {
 
 	return (
 		<div>
-			<h4 className="mt-4 mb-4 font-semibold">Suggestions for you</h4>
-			<div id="suggestions-container" className="max-h-[30vh] overflow-y-scroll">
+			<h4 className="mt-4 mb-2 font-semibold">Suggestions for you</h4>
+			<div id="suggestions-container" className="max-h-[42vh]  overflow-y-scroll">
 				{allSuggestions.length === 0 && (
 					<div className="flex items-center justify-center h-full p-5 space-x-2 text-neutral-400">
 						<HeartCrack size={20} />
@@ -77,7 +77,7 @@ const SuggestionCards = ({
 	hasNextPage,
 	isFetchingNextPage,
 }: {
-	suggestions: track[];
+	suggestions: Track[];
 	fetchNextPage: any;
 	hasNextPage: any;
 	isFetchingNextPage: boolean;
@@ -118,7 +118,7 @@ const SuggestionCards = ({
 				transition={{ duration: 0.5 }}
 				exit={{ opacity: 0 }}
 			>
-				{suggestions.map((track: track, index: number) => (
+				{suggestions.map((track: Track, index: number) => (
 					<ResultTrackItem key={track.id} item={track} ref={index === suggestions.length - 1 ? lastItemRef : null} />
 				))}
 			</motion.div>

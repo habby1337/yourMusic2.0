@@ -11,14 +11,18 @@ import { ThemeProvider } from "./components/theme-provider";
 function App() {
 	return (
 		<ThemeProvider defaultTheme="light" storageKey="ym-ui-theme">
-			<div className="container w-screen h-screen p-4 overflow-x-hidden">
-				<Navigation />
-				<SearchForm />
-				<Discover />
-				<Suggestions />
+			<div className="w-screen h-screen">
+				<div className="p-4 overflow-x-hidden">
+					<Navigation />
+					<SearchForm />
+					<Discover />
+					<Suggestions />
+				</div>
+
 				{/* <SongPlayer /> */}
+
+				<SongDrawer />
 			</div>
-			<SongDrawer />
 		</ThemeProvider>
 	);
 }

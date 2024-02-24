@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { API_URL } from "@/helpers/endpoints";
-import { userResponse } from "@/helpers/types";
+import { UserResponse } from "@/helpers/types";
 import { useQuery } from "react-query";
 import { ModeToggle } from "@/components/mode-toggle";
 const Navigation = () => {
@@ -8,7 +8,7 @@ const Navigation = () => {
 		"user",
 		async () => {
 			const res = await fetch(`${API_URL}/getUserInfo.php`);
-			return res.json() as Promise<userResponse>;
+			return res.json() as Promise<UserResponse>;
 		},
 		{
 			refetchOnWindowFocus: false,
@@ -59,7 +59,7 @@ const Navigation = () => {
 	);
 };
 
-const imageThumbnail = (data: userResponse | undefined, isLoading: boolean) => {
+const imageThumbnail = (data: UserResponse | undefined, isLoading: boolean) => {
 	const placeholderImageUrl =
 		"https://e1.pngegg.com/pngimages/532/220/png-clipart-spotify-for-macos-spotify-logo-thumbnail.png";
 	if (isLoading) return placeholderImageUrl;
@@ -68,7 +68,7 @@ const imageThumbnail = (data: userResponse | undefined, isLoading: boolean) => {
 	return placeholderImageUrl;
 };
 
-const Username = ({ data, isLoading }: { data: userResponse | undefined; isLoading: boolean }) => {
+const Username = ({ data, isLoading }: { data: UserResponse | undefined; isLoading: boolean }) => {
 	const placeholderText = "the coolest dude ever";
 
 	if (isLoading) return placeholderText;

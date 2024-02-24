@@ -66,6 +66,11 @@
 		/* background: radial-gradient(circle, rgba(3, 252, 102, 0.3) 0%, rgba(3, 252, 102, 0.8) 100%); */
 	}
 
+	/* hide scroll bar on mobile */
+	::-webkit-scrollbar {
+		display: none;
+	}
+
 	::-webkit-scrollbar-thumb {
 		background-color: #888; /* Set the color of the scrollbar thumb */
 		border-radius: 6px;

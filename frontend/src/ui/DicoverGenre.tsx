@@ -8,7 +8,7 @@ import { ChevronLeft } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { API_URL } from "@/helpers/endpoints";
 import { useQuery } from "react-query";
-import { playlistItem, playlistSearchResult, track } from "@/helpers/types";
+import { PlaylistItem, PlaylistSearchResult, Track } from "@/helpers/types";
 import { ThemeProvider } from "../components/theme-provider";
 
 const DiscoverGenre = () => {
@@ -73,11 +73,11 @@ const DiscoverGenreSection = ({ genre }: { genre: string }) => {
 		return <p>Error: {(error as Error).message}</p>;
 	}
 
-	const convertToTrackArray = (data: playlistSearchResult) => {
+	const convertToTrackArray = (data: PlaylistSearchResult) => {
 		console.log("THIS IS THE DATA", data);
-		const trackArray: track[] = [];
+		const trackArray: Track[] = [];
 
-		data?.items.map((item: playlistItem) => {
+		data?.items.map((item: PlaylistItem) => {
 			trackArray.push(item.track);
 		});
 
@@ -88,7 +88,7 @@ const DiscoverGenreSection = ({ genre }: { genre: string }) => {
 
 	return (
 		<div className="overflow-y-scroll h-[72vh]">
-			{convertToTrackArray(data).map((item: track) => (
+			{convertToTrackArray(data).map((item: Track) => (
 				<ResultTrackItem key={item.id} item={item} />
 			))}
 		</div>
