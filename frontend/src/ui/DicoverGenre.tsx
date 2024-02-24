@@ -4,36 +4,39 @@ import SearchForm, { ResultTrackItem, ResultTrackListSkeleton } from "./Search";
 import { GenreCard } from "./Discover";
 import { genres } from "../helpers/arrayList";
 import { capitalizeString } from "@/helpers/utils";
-import { ArrowLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { API_URL } from "@/helpers/endpoints";
 import { useQuery } from "react-query";
-import { track } from "@/helpers/types";
+import { playlistItem, playlistSearchResult, track } from "@/helpers/types";
+import { ThemeProvider } from "../components/theme-provider";
 
 const DiscoverGenre = () => {
 	const navigate = useNavigate();
 	const { genre, title } = useParams<{ genre: string; title: string }>();
 
 	return (
-		<div className="container w-screen h-screen p-0">
-			<div className="sticky top-0 z-50 p-3 pb-4 bg-neutral-900 backdrop-blur-xl bg-opacity-30">
-				<Navigation />
-				<SearchForm />
-			</div>
+		<ThemeProvider defaultTheme="light" storageKey="ym-ui-theme">
+			<div className="container w-screen h-screen p-0">
+				<div className="sticky top-0 z-50 p-3 pb-4 dark:bg-zinc-900">
+					<Navigation />
+					<SearchForm />
 
-			<div className="p-3 space-y-5">
-				<div className="flex items-center text-2xl font-semibold text-neutral-300">
-					<button onClick={() => navigate(title ? "/discover" : "/")} className="mr-3">
-						<ArrowLeft size={20} strokeWidth={3} />
-					</button>
-					<p>{title ? capitalizeString(title) : "Discover"}</p>
+					<Separator decorative className="mt-5 opacity-25" />
+					<div className="flex items-center text-2xl font-semibold ">
+						<button onClick={() => navigate(title ? "/discover" : "/")}>
+							<ChevronLeft strokeWidth={2} size="30" className="text-2xl" />
+						</button>
+						<p>{title ? capitalizeString(title) : "Discover"}</p>
+					</div>
 				</div>
-				<Separator decorative className="opacity-25" />
 
-				{!genre && <DiscoverCardSection />}
-				{genre && <DiscoverGenreSection genre={genre} />}
+				<div className="p-3 space-y-1">
+					{!genre && <DiscoverCardSection />}
+					{genre && <DiscoverGenreSection genre={genre} />}
+				</div>
 			</div>
-		</div>
+		</ThemeProvider>
 	);
 };
 
@@ -70,10 +73,11 @@ const DiscoverGenreSection = ({ genre }: { genre: string }) => {
 		return <p>Error: {(error as Error).message}</p>;
 	}
 
-	const convertToTrackArray = (data: any) => {
+	const convertToTrackArray = (data: playlistSearchResult) => {
+		console.log("THIS IS THE DATA", data);
 		const trackArray: track[] = [];
 
-		data?.items.map((item: any) => {
+		data?.items.map((item: playlistItem) => {
 			trackArray.push(item.track);
 		});
 

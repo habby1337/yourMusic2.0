@@ -106,9 +106,9 @@ export const GenreCard = ({ title, description, imageUrl, trackUri, width }: gen
 					/>
 				</div>
 
-				<div className="absolute bottom-0 z-30 w-full  pt-0 pb-1 text-left bg-opacity-50 bg-neutral-900 backdrop-blur-[2px]">
+				{/* <div className="absolute bottom-0 z-30 w-full  pt-0 pb-1 text-left bg-opacity-50 bg-neutral-900 backdrop-blur-[2px]">
 					<CardDescription className="p-2 text-sm text-white">{description}</CardDescription>
-				</div>
+				</div> */}
 			</Card>
 		</motion.div>
 	);

@@ -16,6 +16,15 @@ export interface userResponse {
 export interface trackSearchResult {
 	tracks: tracks;
 }
+
+export interface playlistSearchResult {
+	items: playlistItem[];
+}
+
+export interface playlistItem extends track {
+	track: track;
+}
+
 export interface getPlaylistImageResponse {
 	url: string;
 	height: number | null;
@@ -81,6 +90,7 @@ export interface artist {
 	name: string;
 	type: string;
 	uri: string;
+	images: image[];
 }
 
 export interface external_urls {

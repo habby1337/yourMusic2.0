@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { useState, useRef, useEffect, forwardRef, Ref } from "react";
-import { ArrowLeft, MailWarning, Music, Plus, ServerOff, XCircle } from "lucide-react";
+import { MailWarning, Music, Plus, ServerOff, XCircle, ChevronLeft } from "lucide-react";
 import { motion, AnimatePresence, useAnimation, useInView } from "framer-motion";
 import { useDebouncedCallback } from "use-debounce";
 import { useQuery } from "react-query";
@@ -15,7 +15,7 @@ const SearchForm = () => {
 		<div className="mt-5">
 			<Input
 				placeholder="Search for songs"
-				className="border-0 rounded-full dark:bg-neutral-800 placeholder:text-neutral-400"
+				className="border-0 rounded-full bg-secondary"
 				readOnly={true}
 				onClick={() => setShowModal(true)}
 			/>
@@ -73,14 +73,17 @@ const SearchModal = ({
 			<AnimatePresence>
 				{show && (
 					<motion.div
-						className="absolute top-0 left-0 z-10 w-screen h-screen p-5 space-y-5 bg-neutral-900"
+						className="absolute top-0 left-0 z-10 w-screen h-screen p-5 space-y-5 bg-neutral-50 dark:bg-neutral-900"
 						initial={{ x: "-100%", opacity: 0 }}
 						animate={{ x: 0, opacity: 1 }}
 						transition={{ duration: 0.1 }}
 						exit={{ x: "-100%", opacity: 0 }}
 					>
-						<ArrowLeft size={30} strokeWidth={3} onClick={() => closeSearchMenu()} />
-						<motion.h1 className={`text-3xl font-bold `}>Search</motion.h1>
+						<div className="flex space-x-1 align-baseline">
+							<ChevronLeft strokeWidth={2} onClick={() => closeSearchMenu()} size="30" className="text-3xl" />
+							<motion.h1 className={`text-2xl `}>Search</motion.h1>
+						</div>
+
 						<motion.div
 							// onFocus={() => setIsInputFocused(true)}
 							// onBlur={() => setIsInputFocused(false)}
@@ -91,7 +94,7 @@ const SearchModal = ({
 						>
 							<Input
 								placeholder="Search for songs"
-								className="border-0 rounded-full dark:bg-neutral-800 placeholder:text-neutral-400"
+								className="bg-gray-200 border-0 rounded-full dark:bg-neutral-800 dark:placeholder:text-zinc-400"
 								defaultValue={defaultValue}
 								onChange={(e) => debounced(e.target.value)}
 								ref={inputRef}
@@ -136,13 +139,17 @@ const ResultTrackList = ({
 	// error = "TypeError: NetworkError when attempting to fetch resource.";
 	if (isError) {
 		return (
-			<div className="z-10 flex flex-col items-center justify-center mt-16 text-center h-1/2 text-neutral-400">
-				<ServerOff size={60} strokeWidth={2} className="mb-4 text-neutral-300 opacity-30 mix-blend-exclusion" />
+			<div className="z-10 flex flex-col items-center justify-center mt-16 text-center h-1/2 text-zinc-800 dark:text-neutral-400">
+				<ServerOff
+					size={60}
+					strokeWidth={2}
+					className="mb-4 text-zinc-800 dark:text-neutral-300 opacity-30 mix-blend-exclusion"
+				/>
 				<p className="font-medium">The server might be sleeping at this moment... </p>
 
 				<p className="text-neutral-600">try again later...</p>
 
-				<div className="flex items-center mt-40 space-x-1 font-mono text-neutral-300 opacity-20 mix-blend-exclusion">
+				<div className="flex items-center mt-40 space-x-1 font-mono text-zinc-800 dark:text-neutral-300 opacity-20 mix-blend-exclusion">
 					<MailWarning size={30} strokeWidth={1} />
 					<p className="">{error.message}</p>
 					<MailWarning size={30} strokeWidth={1} />
@@ -153,10 +160,8 @@ const ResultTrackList = ({
 	if (!data?.tracks && !isLoading) {
 		return (
 			<div style={{ zIndex: 9999 }} className="flex flex-col items-center justify-center text-center h-1/2">
-				<Music size={60} strokeWidth={2} className="mb-4 text-neutral-300 opacity-30 mix-blend-exclusion" />
-				<p className="text-2xl font-semibold text-neutral-300 opacity-20 mix-blend-exclusion ">
-					Start typing to get results
-				</p>
+				<Music size={60} strokeWidth={2} className="mb-4 dark:text-neutral-300 text-zinc-800 opacity-30 " />
+				<p className="text-2xl font-semibold text-zinc-800 dark:text-neutral-300 opacity-20 ">Start typing to search</p>
 			</div>
 		);
 	}
@@ -182,8 +187,8 @@ const ResultTrackList = ({
 
 export const ResultTrackListSkeleton = ({ number }: { number: number }) => {
 	return (
-		<div className="space-y-2 overflow-y-scroll max-h-[75vh]">
-			<SkeletonTheme baseColor="#202020" highlightColor="#444">
+		<div className="space-y-2 overflow-y-scroll max-h-[75vh] opacity-50">
+			<SkeletonTheme baseColor="#b8b8b8" highlightColor="#d4d4d4">
 				{[...Array(number)].map((item, index) => (
 					<div className="flex items-center p-1 space-x-2 bg-transparent rounded-xl" key={index}>
 						<div className="relative w-12 min-w-[3rem]" key={item}>

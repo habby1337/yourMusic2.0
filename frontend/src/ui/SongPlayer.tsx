@@ -4,8 +4,9 @@ import { useQuery } from "react-query";
 import { API_URL } from "@/helpers/endpoints";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { artist } from "@/helpers/types";
 
-const Player = () => {
+const SongPlayer = () => {
 	const [showPlayer, setShowPlayer] = useState(true);
 	const [songProgress, setSongProgress] = useState(0);
 	const [scope, animate] = useAnimate();
@@ -47,7 +48,7 @@ const Player = () => {
 
 	const { name, album } = data.item;
 
-	const artistList = album.artists.map((artist: any) => artist.name).join(", ");
+	const artistList = album.artists.map((artist: artist) => artist.name).join(", ");
 	const albumImage = album.images[0].url;
 	const spotifyUrl = album.external_urls.spotify;
 	const isPlaying = data.is_playing;
@@ -139,4 +140,4 @@ const Player = () => {
 	);
 };
 
-export default Player;
+export default SongPlayer;

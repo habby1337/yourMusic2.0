@@ -1,5 +1,5 @@
 import { ResultTrackItem, ResultTrackListSkeleton } from "./Search";
-import { track } from "@/helpers/types";
+import { artist, track } from "@/helpers/types";
 import { useInfiniteQuery } from "react-query";
 import { generateRandomString } from "@/helpers/utils";
 import { API_URL } from "@/helpers/endpoints";
@@ -26,7 +26,7 @@ const Suggestions = () => {
 				name: item.album.name,
 				images: item.album.images,
 			},
-			artists: item.artists.map((artist: any) => ({
+			artists: item.artists.map((artist: artist) => ({
 				id: artist.id,
 				name: artist.name,
 				images: artist.images,
