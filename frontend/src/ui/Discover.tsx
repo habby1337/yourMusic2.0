@@ -32,7 +32,7 @@ export const CardSlider = () => {
 					imageUrl={genre.imageUrl}
 					trackUri={genre.trackUri}
 					key={genre.title}
-					width="w-[14rem]"
+					width="w-[10rem]"
 				/>
 			))}
 		</div>

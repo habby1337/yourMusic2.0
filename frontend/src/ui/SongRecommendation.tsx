@@ -44,7 +44,7 @@ const SongRecommendation = ({ limit }: { limit: number }) => {
 	return (
 		<div className="p-2 pt-0 rounded shadow-lg">
 			<h4 className="mt-4 mb-2 font-semibold">Suggestions for you</h4>
-			<div className="max-h-[35vh]  overflow-y-scroll">
+			<div className="max-h-[40vh]  overflow-y-scroll">
 				<SuggestionsCards suggestions={tracks} />
 			</div>
 		</div>
