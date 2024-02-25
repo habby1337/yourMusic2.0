@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 const SongDrawer = () => {
 	return (
-		<div className="absolute bottom-0 w-full">
+		<div className="sticky bottom-0 w-full">
 			<SongCard />
 		</div>
 	);
@@ -41,7 +41,7 @@ const SongCard = () => {
 			const res = await fetch(`${API_URL}/getCurrentTrack.php`);
 			return res.json() as Promise<CurrentPlayback>;
 		},
-		{ refetchInterval: 10000, refetchIntervalInBackground: true },
+		{ refetchInterval: 16000, refetchIntervalInBackground: true },
 	);
 
 	useEffect(() => {
@@ -91,7 +91,7 @@ const SongCard = () => {
 		return null;
 	}
 
-	console.log({ songData });
+	// console.log({ songData });
 
 	const { item: song } = songData;
 

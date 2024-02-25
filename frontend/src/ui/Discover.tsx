@@ -116,7 +116,7 @@ export const GenreCard = ({ title, imageUrl, trackUri, width }: Genre & { width:
 
 const Discover = () => {
 	return (
-		<div className="mt-8">
+		<div className="p-2 mt-8 rounded shadow-lg">
 			<Title />
 			<CardSlider />
 		</div>

@@ -12,7 +12,7 @@ function App() {
 	return (
 		<ThemeProvider defaultTheme="light" storageKey="ym-ui-theme">
 			<div className="w-screen h-screen">
-				<div className="p-4 overflow-x-hidden">
+				<div className="p-2 overflow-x-hidden">
 					<Navigation />
 					<SearchForm />
 					<Discover />
