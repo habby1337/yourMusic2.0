@@ -5,6 +5,7 @@ import { API_URL } from "@/helpers/endpoints";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Artist } from "@/helpers/types";
+import { Progress } from "@/components/ui/progress";
 
 const SongPlayer = () => {
 	const [showPlayer, setShowPlayer] = useState(true);
@@ -116,6 +117,7 @@ const SongPlayer = () => {
 									className="absolute w-full h-1 bg-white rounded-full mix-blend-difference"
 									style={{ width: `${songProgress}%` }}
 								></div>
+								<Progress value={songProgress} />
 							</div>
 							<div className="flex items-center justify-between mt-4">
 								<p className="text-sm font-bold mix-blend-difference">

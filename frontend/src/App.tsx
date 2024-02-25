@@ -13,7 +13,7 @@ function App() {
 	const LIMIT = 30;
 	return (
 		<ThemeProvider defaultTheme="light" storageKey="ym-ui-theme">
-			<div className="w-screen h-screen">
+			<div className="w-screen h-full">
 				<div className="p-2 overflow-x-hidden">
 					<Navigation />
 					<SearchForm />

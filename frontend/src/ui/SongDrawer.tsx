@@ -9,6 +9,7 @@ import {
 	DrawerTitle,
 	DrawerTrigger,
 } from "@/components/ui/drawer";
+import { Progress } from "@/components/ui/progress";
 import { API_URL } from "@/helpers/endpoints";
 import { Artist, CurrentPlayback } from "@/helpers/types";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
@@ -17,7 +18,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 const SongDrawer = () => {
 	return (
-		<div className="sticky bottom-0 w-full">
+		<div className="absolute bottom-0 w-screen">
 			<SongCard />
 		</div>
 	);
@@ -159,12 +160,13 @@ const SongCard = () => {
 							</div>
 
 							<div className="">
-								<div className="relative ">
-									<div className="absolute w-full h-1 bg-current rounded-full"></div>
+								<div className="relative">
+									{/* <div className="absolute w-full h-1 bg-current rounded-full"></div>
 									<div
 										className="absolute w-full h-1 rounded-full bg-primary "
 										style={{ width: `${songProgress}%` }}
-									></div>
+									></div> */}
+									<Progress value={songProgress} className="h-[5px]" />
 								</div>
 								<div className="flex items-center justify-between mt-1">
 									<p className="text-sm font-bold ">{formatTime((songProgress * song.duration_ms) / 100)}</p>
