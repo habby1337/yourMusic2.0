@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
-import { Card, CardDescription } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { genres } from "@/helpers/arrayList";
-import { genre, getPlaylistImageResponse } from "@/helpers/types";
+import { Genre, GetPlaylistImageResponse } from "@/helpers/types";
 
 import { useNavigate } from "react-router-dom";
 import { motion, useAnimation, useInView } from "framer-motion";
@@ -39,7 +39,7 @@ export const CardSlider = () => {
 	);
 };
 
-export const GenreCard = ({ title, description, imageUrl, trackUri, width }: genre & { width: string }) => {
+export const GenreCard = ({ title, imageUrl, trackUri, width }: Genre & { width: string }) => {
 	const navigate = useNavigate();
 	const encodedTitle = encodeURIComponent(title);
 
@@ -69,7 +69,7 @@ export const GenreCard = ({ title, description, imageUrl, trackUri, width }: gen
 		const request = fetch(url);
 		request
 			.then((response) => response.json())
-			.then((data: getPlaylistImageResponse[]) => {
+			.then((data: GetPlaylistImageResponse[]) => {
 				setProcessedImageUrl(data[0].url);
 				// setImageUrl(data.images[0].url);
 			})

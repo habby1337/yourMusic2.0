@@ -5,7 +5,7 @@ import { motion, AnimatePresence, useAnimation, useInView } from "framer-motion"
 import { useDebouncedCallback } from "use-debounce";
 import { useQuery } from "react-query";
 import { API_URL } from "@/helpers/endpoints";
-import { trackSearchResult, track } from "@/helpers/types";
+import { TrackSearchResult, Track, Artist } from "@/helpers/types";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { handleAddToQueue } from "@/helpers/utils";
 
@@ -129,7 +129,7 @@ const ResultTrackList = ({
 	error,
 	isError,
 }: {
-	data: trackSearchResult;
+	data: TrackSearchResult;
 	isLoading: boolean;
 	error: Error;
 	isError: boolean;
@@ -177,7 +177,7 @@ const ResultTrackList = ({
 	if (data?.tracks) {
 		return (
 			<div className="space-y-2 overflow-y-scroll max-h-[75vh]">
-				{data.tracks.items.map((item) => (
+				{data.tracks.items.map((item: Track) => (
 					<ResultTrackItem key={item.id} item={item} />
 				))}
 			</div>
@@ -205,7 +205,7 @@ export const ResultTrackListSkeleton = ({ number }: { number: number }) => {
 	);
 };
 
-export const ResultTrackItem = forwardRef(({ item }: { item: track }, ref: Ref<HTMLDivElement>) => {
+export const ResultTrackItem = forwardRef(({ item }: { item: Track }, ref: Ref<HTMLDivElement>) => {
 	const [isHovered, setIsHovered] = useState(false);
 
 	const controls = useAnimation();
@@ -254,7 +254,7 @@ export const ResultTrackItem = forwardRef(({ item }: { item: track }, ref: Ref<H
 				</div>
 				<div className="flex flex-col ">
 					<p className="font-bold">{item.name}</p>
-					<p className="text-sm">{item.artists.map((artist) => artist.name).join(", ")}</p>
+					<p className="text-sm">{item.artists.map((artist: Artist) => artist.name).join(", ")}</p>
 				</div>
 			</div>
 		</motion.div>

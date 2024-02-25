@@ -1,6 +1,6 @@
-import { genre } from "./types";
+import { Genre } from "./types";
 
-export const genres: genre[] = [
+export const genres: Genre[] = [
 	{
 		title: "Top 50 Global",
 		description: "nuovo, popolare, hit",

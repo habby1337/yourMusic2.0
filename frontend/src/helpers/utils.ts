@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 import { API_URL } from "./endpoints";
-import { track } from "./types";
+import { Track } from "./types";
 import { rateLimit } from "rate-limiter-fn";
 
 export const generateRandomString = (length: number): string => {
@@ -12,7 +12,7 @@ export const generateRandomString = (length: number): string => {
 	}
 	return result;
 };
-const addToQueue = (trackUri: track["uri"]) => {
+const addToQueue = (trackUri: Track["uri"]) => {
 	const res = fetch(`${API_URL}/addQueue.php?q=${trackUri}`);
 	toast.promise(res, {
 		loading: "Adding song to queue...",
@@ -28,7 +28,7 @@ const rateLimitPromise = rateLimit(addToQueue, {
 });
 
 // create a ratelimiter, if the function is called more than once in the given time, it will return false
-export const handleAddToQueue = async (trackUri: track["uri"]) => {
+export const handleAddToQueue = async (trackUri: Track["uri"]) => {
 	rateLimitPromise(trackUri);
 };
 
