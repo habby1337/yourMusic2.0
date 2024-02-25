@@ -4,11 +4,13 @@ import Navigation from "./ui/Navigation";
 import SearchForm from "./ui/Search";
 import Discover from "./ui/Discover";
 // import SongPlayer from "./ui/SongPlayer";
-import Suggestions from "./ui/Suggestions";
+// import Suggestions from "./ui/Suggestions";
 import SongDrawer from "./ui/SongDrawer";
 import { ThemeProvider } from "./components/theme-provider";
+import SongRecommendation from "./ui/SongRecommendation";
 
 function App() {
+	const LIMIT = 30;
 	return (
 		<ThemeProvider defaultTheme="light" storageKey="ym-ui-theme">
 			<div className="w-screen h-screen">
@@ -16,7 +18,8 @@ function App() {
 					<Navigation />
 					<SearchForm />
 					<Discover />
-					<Suggestions />
+					{/* <Suggestions /> */}
+					<SongRecommendation limit={LIMIT} />
 				</div>
 
 				{/* <SongPlayer /> */}

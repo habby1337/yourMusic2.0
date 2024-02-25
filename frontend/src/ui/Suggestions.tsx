@@ -46,7 +46,7 @@ const Suggestions = () => {
 	const allSuggestions = data ? data.pages.flatMap((page) => page.suggestions) : [];
 
 	return (
-		<div className="p-2 pt-0 rounded shadow-lg ">
+		<div className="p-2 pt-0 rounded shadow-lg">
 			<h4 className="mt-4 mb-2 font-semibold">Suggestions for you</h4>
 			<div id="suggestions-container" className="max-h-[42vh]  overflow-y-scroll">
 				{allSuggestions.length === 0 && (

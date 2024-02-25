@@ -17,6 +17,7 @@ A better interface for your Spotify Queue. Built with React and the Spotify API.
 - [ ] Add the top artists and top songs of the user to the discover / suggestions page
 - [ ] Add user playlists to discover page
 - [ ] Add suggestions based on the current song playing
+- [ ] Add banner to inform user about clarity and analytics
 
 ## 😕 Why doing it again?
 So, I looked at the original project UI and i thought, 'Hmm, this needs a makeover'. So i decided it's time to pimp up the project's interface, make it more modern and more user friendly. I also added some new features that i thought would be cool to have, like, i'm not kidding, i've added more features than a Swiss Army knife on steroids. It's like the original project was using stone tools.

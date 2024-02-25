@@ -31,11 +31,14 @@ if(isset($_GET['limit']) && $_GET['limit'] > 0) {
     $limit = intval($_GET["limit"]);
 }
 
+
+
 try {
 $recommendations = $api->getRecommendations([
     'seed_tracks' => $currentTrackSeed,
     'limit'=> $limit,
     'market' => 'IT',
+
 ]);
 } catch (SpotifyWebAPI\SpotifyWebAPIException $e) {
     echo json_encode([

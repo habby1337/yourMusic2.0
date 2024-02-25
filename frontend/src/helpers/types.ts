@@ -133,3 +133,22 @@ export interface Context {
 	type: string;
 	uri: string;
 }
+
+export interface SuccessRecommendationsResponse {
+	tracks: Track[];
+	seeds: Seed[];
+}
+
+export interface ErrorResponse {
+	message: string;
+	code: number;
+}
+
+export interface Seed {
+	afterFilteringSize: number;
+	afterRelinkingSize: number;
+	href: string;
+	id: string;
+	initialPoolSize: number;
+	type: string;
+}
