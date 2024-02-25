@@ -12,12 +12,14 @@ A better interface for your Spotify Queue. Built with React and the Spotify API.
 - [x] Infinite scroll not working on chorme / safari
 - [X] fix chrome searchbar moving the playback card way to low 
 - [X] Menu closing animation
-- [ ] Add a way to add playlists to the discover page ??
 - [x] Add a rate limiter for adding songs to the queue
+- [x] Add suggestions based on the current song playing
+- [x] Add dark-mode to toasts
+- [ ] Add a way to add playlists to the discover page, using issues and pull requests
 - [ ] Add the top artists and top songs of the user to the discover / suggestions page
-- [ ] Add user playlists to discover page
-- [ ] Add suggestions based on the current song playing
+- [ ] Add user's playlists ("Discover weekly", "Release Radar", "Liked songs", "Top 100" etc.) to discover page
 - [ ] Add banner to inform user about clarity and analytics
+- [ ] Create a better animation for the playback component when opening the drawer
 
 ## 😕 Why doing it again?
 So, I looked at the original project UI and i thought, 'Hmm, this needs a makeover'. So i decided it's time to pimp up the project's interface, make it more modern and more user friendly. I also added some new features that i thought would be cool to have, like, i'm not kidding, i've added more features than a Swiss Army knife on steroids. It's like the original project was using stone tools.
@@ -42,6 +44,7 @@ you can find what i'm talking about in the `backend/api/v1/callback.php` line **
 - Make sure the `backend/api/data` folder has write permissions. (this is where the access token is stored)
   - use `chmod 777 api/v1/data` 
   
+   <sub>Yeah, i know, we should'nt use '777' because it can be dangerous and yada yada... Use whatever... just be sure to give at least the writing permission</sub>  
 
 ## 🛫 1.4 Running the app
 - Run `docker-compose up --build -d` or ``docker compose up --build -d`` in the root directory to start the app.   
