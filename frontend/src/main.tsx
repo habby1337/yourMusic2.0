@@ -22,7 +22,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
 		<QueryClientProvider client={queryClient}>
 			<RouterProvider router={router} />
-			<Toaster />
+			<Toaster
+				toastOptions={{
+					className: "dark:bg-background dark:text-white",
+				}}
+			/>
 		</QueryClientProvider>
 	</React.StrictMode>,
 );
