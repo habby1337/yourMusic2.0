@@ -18,7 +18,7 @@ const DiscoverGenre = () => {
 	return (
 		<ThemeProvider defaultTheme="light" storageKey="ym-ui-theme">
 			<div className="container w-screen h-screen p-0">
-				<div className="sticky top-0 z-50 p-3 pb-4 dark:bg-zinc-900">
+				<div className="sticky top-0 z-50 p-3 pb-4 bg-background dark:bg-zinc-900">
 					<Navigation />
 					<SearchForm />
 
