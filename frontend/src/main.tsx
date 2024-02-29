@@ -9,10 +9,11 @@ import "react-loading-skeleton/dist/skeleton.css";
 import DiscoverGenre from "./ui/DicoverGenre.tsx";
 import { AuthorizeMe } from "./ui/AuthorizeMe.tsx";
 import { SecretPanel } from "./ui/SecretPanel.tsx";
+import ErrorBoundary from "./ui/ErrorBoundary.tsx";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
-	{ path: "/", Component: App },
+	{ path: "/", Component: App, errorElement: <ErrorBoundary message="You moms a hoe" /> },
 	{ path: "/discover/:genre?/:title?", Component: DiscoverGenre },
 	{ path: "/authorizeMe", Component: AuthorizeMe },
 	{ path: "/youAndMe:)", Component: SecretPanel },

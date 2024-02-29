@@ -11,7 +11,7 @@ import { API_URL } from "@/helpers/endpoints";
 const Title = () => {
 	return (
 		<div className="flex items-baseline justify-between mb-4 ">
-			<h1 className="text-[28px]">Discover new</h1>
+			<h1 className="text-2xl">Discover new</h1>
 			<div>
 				<a href="/discover" className="flex items-center gap-1 align-bottom">
 					<p className="text-sm ">View more genres</p>

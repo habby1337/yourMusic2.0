@@ -19,7 +19,9 @@ const SongRecommendation = ({ limit }: { limit: number }) => {
 	} = useQuery("songsList", fetchSongsRecommendation, {
 		refetchInterval: 300_000,
 		retry: 3,
-		optimisticResults: true,
+		keepPreviousData: true,
+		// optimisticResults: true,
+
 		// staleTime: 1000 * 60 * 60,
 		// cacheTime: 1000 * 60 * 60,
 	});
@@ -32,9 +34,9 @@ const SongRecommendation = ({ limit }: { limit: number }) => {
 
 	if (!recommendationResponse || isError) {
 		return (
-			<div className="flex items-center justify-center h-full p-5 space-x-2 text-neutral-400">
+			<div className="flex items-center justify-center h-full p-5 my-auto mt-5 space-x-2 text-neutral-400">
 				<HeartCrack size={20} />
-				<p className="text-sm ">No suggestions available at this time</p>
+				<p className="text-base ">No suggestions available at this time</p>
 				<HeartCrack size={20} />
 			</div>
 		);
