@@ -17,8 +17,9 @@ const SongRecommendation = ({ limit }: { limit: number }) => {
 		isError,
 		isLoading,
 	} = useQuery("songsList", fetchSongsRecommendation, {
-		refetchInterval: 10000,
+		refetchInterval: 300_000,
 		retry: 3,
+		optimisticResults: true,
 		// staleTime: 1000 * 60 * 60,
 		// cacheTime: 1000 * 60 * 60,
 	});
