@@ -1,3 +1,5 @@
+import { SparklesCore } from "@/components/ui/sparkles";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import { API_URL } from "@/helpers/endpoints";
 import { Play, SkipBack, SkipForward, Square } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -45,40 +47,76 @@ export const SecretPanel = () => {
 	};
 
 	// return a random emoji from the list
+	const words = [
+		{
+			text: "Is",
+		},
+		{
+			text: "this",
+		},
+		{
+			text: "a",
+		},
+		{
+			text: "secret",
+			className: "text-3xl font-bold rainbow rainbow-text-animated",
+		},
+		{
+			text: "panel?",
+		},
+		{
+			text: "🤔",
+		},
+	];
 
 	return (
-		<div className="w-screen h-screen mx-auto ">
-			<div className="p-4 text-center">
-				<span className="text-2xl"></span>
-				<h1 className="text-2xl font-bold rainbow rainbow-text-animated">Is this... is this a secret panel? </h1>
+		<div className="h-screen relative w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
+			<div className="w-full absolute inset-0 h-screen">
+				<SparklesCore
+					id="sparkles"
+					background="transparent"
+					minSize={0.6}
+					maxSize={1.4}
+					particleDensity={100}
+					className="w-full h-full"
+					particleColor="#ffffff"
+				/>
 			</div>
-
-			<div className="mt-16 mb-4">
-				<p className="text-2xl text-center">🎵 Playback Control 🎵</p>
-			</div>
-			<div className="flex justify-center space-x-2">
-				<button
-					onClick={sendBackward}
-					className="flex-initial border rounded-lg border-neutral-600 hover:border-orange-500"
-				>
-					<SkipBack {...iconSettings} className={iconClasses} />
-				</button>
-				<button onClick={stopPlayer} className="border rounded-lg border-neutral-600 hover:border-orange-500">
-					<Square {...iconSettings} className={iconClasses} />
-				</button>
-				<button onClick={sendPlay} className="border rounded-lg border-neutral-600 hover:border-orange-500">
-					<Play {...iconSettings} className={iconClasses} />
-				</button>
-
-				<button onClick={sendForward} className="border rounded-lg border-neutral-600 hover:border-orange-500">
-					<SkipForward {...iconSettings} className={iconClasses} />
-				</button>
-			</div>
-
-			<div>
-				<VolumeSlider />
-			</div>
+			{/* <h1 className="text-3xl font-bold text-center text-white relative z-20">Build this cool pannel</h1> */}
+			<TypewriterEffect words={words} />
 		</div>
+		// <div className="w-screen h-screen mx-auto ">
+		// 	<div className="p-4 text-center">
+		// 		<span className="text-2xl"></span>
+		// 		<h1 className="text-2xl font-bold rainbow rainbow-text-animated">Is this... is this a secret panel? </h1>
+		// 	</div>
+
+		// 	<div className="mt-16 mb-4">
+		// 		<p className="text-2xl text-center">🎵 Playback Control 🎵</p>
+		// 	</div>
+		// 	<div className="flex justify-center space-x-2">
+		// 		<button
+		// 			onClick={sendBackward}
+		// 			className="flex-initial border rounded-lg border-neutral-600 hover:border-orange-500"
+		// 		>
+		// 			<SkipBack {...iconSettings} className={iconClasses} />
+		// 		</button>
+		// 		<button onClick={stopPlayer} className="border rounded-lg border-neutral-600 hover:border-orange-500">
+		// 			<Square {...iconSettings} className={iconClasses} />
+		// 		</button>
+		// 		<button onClick={sendPlay} className="border rounded-lg border-neutral-600 hover:border-orange-500">
+		// 			<Play {...iconSettings} className={iconClasses} />
+		// 		</button>
+
+		// 		<button onClick={sendForward} className="border rounded-lg border-neutral-600 hover:border-orange-500">
+		// 			<SkipForward {...iconSettings} className={iconClasses} />
+		// 		</button>
+		// 	</div>
+
+		// 	<div>
+		// 		<VolumeSlider />
+		// 	</div>
+		// </div>
 	);
 };
 

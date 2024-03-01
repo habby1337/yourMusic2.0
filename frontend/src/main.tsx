@@ -16,7 +16,7 @@ const router = createBrowserRouter([
 	{ path: "/", Component: App, errorElement: <ErrorBoundary message="You moms a hoe" /> },
 	{ path: "/discover/:genre?/:title?", Component: DiscoverGenre },
 	{ path: "/authorizeMe", Component: AuthorizeMe },
-	{ path: "/youAndMe:)", Component: SecretPanel },
+	{ path: "/secret", Component: SecretPanel },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

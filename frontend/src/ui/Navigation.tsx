@@ -27,7 +27,7 @@ const Navigation = () => {
 	return (
 		<div className="flex justify-around">
 			<div className="flex gap-2 text-left">
-				<a href={data?.external_urls.spotify} target="_blank" className="relative">
+				<a href={data?.external_urls.spotify || "/authorizeMe"} target="_blank" className="relative">
 					{data?.product === "premium" && (
 						<div className="absolute z-10 -left-4 ">
 							<div className="text-[10px] text-green-500 -rotate-45 font-extrabold dark:bg-neutral-900 bg-neutral-50  rounded-sm p-[1px]">
