@@ -1,4 +1,5 @@
 import { SparklesCore } from "@/components/ui/sparkles";
+import { Tabs } from "@/components/ui/tabs";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import { API_URL } from "@/helpers/endpoints";
 import { Play, SkipBack, SkipForward, Square } from "lucide-react";
@@ -49,7 +50,10 @@ export const SecretPanel = () => {
 	// return a random emoji from the list
 	const words = [
 		{
-			text: "Is",
+			text: "Is...",
+		},
+		{
+			text: "is...",
 		},
 		{
 			text: "this",
@@ -59,18 +63,15 @@ export const SecretPanel = () => {
 		},
 		{
 			text: "secret",
-			className: "text-3xl font-bold rainbow rainbow-text-animated",
+			className: " ",
 		},
 		{
 			text: "panel?",
 		},
-		{
-			text: "🤔",
-		},
 	];
 
 	return (
-		<div className="h-screen relative w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
+		<div className="h-screen relative w-full bg-neutral-950  overflow-hidden rounded-md">
 			<div className="w-full absolute inset-0 h-screen">
 				<SparklesCore
 					id="sparkles"
@@ -83,7 +84,11 @@ export const SecretPanel = () => {
 				/>
 			</div>
 			{/* <h1 className="text-3xl font-bold text-center text-white relative z-20">Build this cool pannel</h1> */}
-			<TypewriterEffect words={words} />
+			<div className="p-4">
+				<TypewriterEffect words={words} cursorClassName="h-5" className="font-normal text-2xl" />
+
+				<TabsSettings />
+			</div>
 		</div>
 		// <div className="w-screen h-screen mx-auto ">
 		// 	<div className="p-4 text-center">
@@ -120,6 +125,48 @@ export const SecretPanel = () => {
 	);
 };
 
+const TabsSettings = () => {
+	const tabs = [
+		{
+			title: "Playback",
+			value: "playback",
+			content: (
+				<div className="bw-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-opacity-50 bg-gradient-to-br from-neutral-800 to-slate-900">
+					<h1>Playback</h1>
+				</div>
+			),
+		},
+		{
+			title: "Volume",
+			value: "volume",
+			content: (
+				<div className="bw-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-opacity-50 bg-gradient-to-br  from-neutral-800 to-slate-900">
+					<h1>Volume</h1>
+				</div>
+			),
+		},
+		{
+			title: "General",
+			value: "general",
+			content: (
+				<div className="bw-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-opacity-50 bg-gradient-to-br from-neutral-800 to-slate-900">
+					<h1>General</h1>
+				</div>
+			),
+		},
+	];
+
+	return (
+		<div className="h-[40rem] md:h-[40rem]  [perspective:1000px] relative b flex flex-col max-w-5xl mx-auto w-full items-center justify-center my-5 ">
+			<Tabs
+				tabs={tabs}
+				containerClassName="bg-opacity-50 justify-center"
+				contentClassName="bg-opacity-50"
+				// tabClassName="justify-content-center flex"
+			/>
+		</div>
+	);
+};
 const VolumeSlider = () => {
 	// const { isLoading, error, data, isError } = useQuery(["getVolume", newVolume], getVolume, {})
 	const [volume, setVolume] = useState(0);
