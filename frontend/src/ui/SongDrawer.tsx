@@ -79,14 +79,11 @@ const SongCard = () => {
 	}, [songData]);
 
 	useEffect(() => {
-		console.log("isDrawerOpen", isDrawerOpen);
-		console.log("drawerPlaceholder", drawerPlaceholder);
 		if (!drawerPlaceholder.current) return;
 		if (!drawerReal.current) return;
 		if (isDrawerOpen) {
 			animatePlaceholder(drawerPlaceholder.current, { opacity: 0, y: -100 }, { duration: 0.01 });
 			animateDrawer(drawerReal.current, { opacity: 1, y: 0 }, { duration: 0.18 });
-			console.log("drawerPlaceholder", drawerPlaceholder.current.style.opacity);
 		} else {
 			animatePlaceholder(drawerPlaceholder.current, { opacity: 1, y: 0 }, { duration: 0.18 });
 			animateDrawer(drawerReal.current, { opacity: 0, y: 100 }, { duration: 0.01 });
