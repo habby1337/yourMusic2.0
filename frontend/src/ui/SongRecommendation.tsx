@@ -32,12 +32,17 @@ const SongRecommendation = ({ limit }: { limit: number }) => {
 		return <ResultTrackListSkeleton number={10} />;
 	}
 
-	if (!recommendationResponse || isError) {
+	if (isError || !Array.isArray(recommendationResponse?.tracks)) {
 		return (
-			<div className="flex items-center justify-center h-full p-5 my-auto mt-5 space-x-2 text-neutral-400">
-				<HeartCrack size={20} />
-				<p className="text-base ">No suggestions available at this time</p>
-				<HeartCrack size={20} />
+			<div className="justify-center text-center items-center ">
+				<div className="flex items-center justify-center h-full p-5 pb-0 my-auto mt-5 space-x-2 text-neutral-400">
+					<HeartCrack size={20} />
+					<div className="text-center">
+						<p className="text-base ">No suggestions available at this time</p>
+					</div>
+					<HeartCrack size={20} />
+				</div>
+				<p className="text-gray-400 dark:text-gray-600 ">{recommendationResponse?.message as never}</p>
 			</div>
 		);
 	}

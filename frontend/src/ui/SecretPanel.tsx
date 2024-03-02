@@ -1,8 +1,11 @@
+import usePlayerStore from "@/components/store/playerStore";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { Tabs } from "@/components/ui/tabs";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import { API_URL } from "@/helpers/endpoints";
-import { Play, SkipBack, SkipForward, Square } from "lucide-react";
+import { Play, Send, SendHorizonal, SendHorizontal, SkipBack, SkipForward, Square } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
@@ -127,7 +130,7 @@ export const SecretPanel = () => {
 
 const TabsSettings = () => {
 	const tabClassName =
-		"bw-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-opacity-50 bg-gradient-to-br from-slate-800 to-slate-900";
+		"bw-full overflow-hidden relative h-full rounded-2xl p-2 text-xl md:text-4xl font-bold text-white bg-opacity-50 bg-gradient-to-br from-slate-800 to-slate-900";
 	const tabs = [
 		{
 			title: "Playback",
@@ -173,8 +176,105 @@ const TabsSettings = () => {
 	);
 };
 
+export const ACTIONS = {
+	PLAY: "sendPlay",
+	STOP: "sendStop",
+	SKIP_BACK: "sendBackward",
+	SKIP_FORWARD: "sendForward",
+	SET_VOLUME: "setVolume",
+	GET_VOLUME: "getVolume",
+} as const;
+
+interface Action {
+	type: keyof typeof ACTIONS;
+	options?: {
+		[key: string]: string;
+	};
+}
+
 const PlaybackControls = () => {
-	return <h1>Those are controls</h1>;
+	const [playbackState, setPlaybackState] = useState<keyof typeof ACTIONS>("STOP");
+	const isPlaying = usePlayerStore((state) => state.isPlaying);
+	const sendAction = async (action: Action) => {
+		switch (action.type) {
+			case "SET_VOLUME":
+				await fetch(`${API_URL}/${ACTIONS[action.type]}.php?v=${action.options?.volume}`);
+				break;
+			default:
+				await fetch(`${API_URL}/${ACTIONS[action.type]}.php`);
+				break;
+		}
+	};
+
+	useEffect(() => {
+		console.log({ isPlaying });
+		if (isPlaying || playbackState === "PLAY") {
+			setPlaybackState("PLAY");
+		} else {
+			setPlaybackState("STOP");
+		}
+	}, [isPlaying, playbackState]);
+
+	return (
+		<div className="p-0 items-center text-center space-y-5  justify-center">
+			<div>
+				<h2 className="text-xl p-2">Playback</h2>
+
+				<div className="space-x-2 inline-flex">
+					<Button onClick={() => sendAction({ type: "SKIP_BACK" })}>
+						<SkipBack />
+					</Button>
+					{playbackState === "STOP" ? (
+						<Button
+							onClick={() => {
+								sendAction({ type: "PLAY" });
+								setPlaybackState("PLAY");
+							}}
+						>
+							<Play />
+						</Button>
+					) : (
+						<Button
+							onClick={() => {
+								sendAction({ type: "STOP" });
+								setPlaybackState("STOP");
+							}}
+						>
+							<Square />
+						</Button>
+					)}
+					<Button onClick={() => sendAction({ type: "SKIP_FORWARD" })}>
+						<SkipForward />
+					</Button>
+				</div>
+			</div>
+			<div>
+				<h2 className="text-xl p-2">Play song</h2>
+				<div>
+					<TrackInput />
+				</div>
+			</div>
+		</div>
+	);
+};
+
+const TrackInput = () => {
+	const [track, setTrack] = useState("");
+	return (
+		<div className="flex space-x-2 h-30">
+			{/* create an input that holds a track */}
+			<Input
+				type="text"
+				placeholder="spotify:track:7lEptt4wbM0yJTvSG5EBof"
+				value={track}
+				onChange={(e) => setTrack(e.target.value)}
+				className="w-5/6 h-full"
+			/>
+			<Button className="w-1/6 h-full ">
+				<Send size={20} strokeWidth={0.88888888} />
+			</Button>
+		</div>
+	);
 };
 
 const VolumeControls = () => {

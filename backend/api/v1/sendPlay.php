@@ -29,7 +29,12 @@ $options = [
 
 $api = new SpotifyWebAPI\SpotifyWebAPI($options, $session);
 
+$context_uri = []
+if(isset($_GET['context_uri'])) {
+    $context_uri = $_GET['context_uri'];
+}
 // Fetch the saved access token from somewhere. A database for example.
 
 // hot hits italia playlist
-var_dump($api->play(false, ['context_uri' => 'spotify:playlist:37i9dQZEVXbIQnj7RRhdSX',]));
+// var_dump($api->play(false, ['context_uri' => 'spotify:playlist:37i9dQZEVXbIQnj7RRhdSX',]));
+var_dump($api->play(false, $context_uri ));

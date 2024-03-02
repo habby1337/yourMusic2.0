@@ -137,6 +137,8 @@ export interface Context {
 export interface SuccessRecommendationsResponse {
 	tracks: Track[];
 	seeds: Seed[];
+	error?: number;
+	message?: string;
 }
 
 export interface ErrorResponse {
