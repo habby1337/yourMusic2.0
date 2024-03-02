@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 const SongDrawer = () => {
 	return (
-		<div className="absolute bottom-0 w-screen">
+		<div className="">
 			<SongCard />
 		</div>
 	);
@@ -27,7 +27,8 @@ const SongDrawer = () => {
 const SongCard = () => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [songProgress, setSongProgress] = useState(0);
-	const [drawerPlaceholder, animate] = useAnimate();
+	const [drawerPlaceholder, animatePlaceholder] = useAnimate();
+	const [drawerReal, animateDrawer] = useAnimate();
 	const [rotateDegree, setRotateDegree] = useState(360);
 	const [durationSpeed, setDurationSpeed] = useState(10);
 	const [clicksOnImage, setClicksOnImage] = useState(0);
@@ -78,11 +79,26 @@ const SongCard = () => {
 	}, [songData]);
 
 	useEffect(() => {
-		if (isLoading || songData?.is_playing === false) return;
-		if (!isDrawerOpen) return;
-
-		animate(drawerPlaceholder.current, { x: 0, y: 0, display: "block", opacity: 1 });
+		console.log("isDrawerOpen", isDrawerOpen);
+		console.log("drawerPlaceholder", drawerPlaceholder);
+		if (!drawerPlaceholder.current) return;
+		if (!drawerReal.current) return;
+		if (isDrawerOpen) {
+			animatePlaceholder(drawerPlaceholder.current, { opacity: 0, y: -100 }, { duration: 0.01 });
+			animateDrawer(drawerReal.current, { opacity: 1, y: 0 }, { duration: 0.18 });
+			console.log("drawerPlaceholder", drawerPlaceholder.current.style.opacity);
+		} else {
+			animatePlaceholder(drawerPlaceholder.current, { opacity: 1, y: 0 }, { duration: 0.18 });
+			animateDrawer(drawerReal.current, { opacity: 0, y: 100 }, { duration: 0.01 });
+		}
 	}, [isDrawerOpen]);
+
+	// useEffect(() => {
+	// 	if (isLoading || songData?.is_playing === false) return;
+	// 	if (!isDrawerOpen) return;
+
+	// 	animate(drawerPlaceholder.current, { x: 0, y: 0, display: "block", opacity: 1 });
+	// }, [isDrawerOpen]);
 
 	if (isLoading || songData?.is_playing === false) {
 		return null;
@@ -120,13 +136,7 @@ const SongCard = () => {
 	return (
 		<AnimatePresence>
 			<Drawer open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
-				<motion.div
-					ref={drawerPlaceholder}
-					initial={{ bottom: "0", opacity: 1 }}
-					animate={{ bottom: "-50%", display: "block", opacity: "1" }}
-					transition={{ duration: 1 }}
-					exit={{ bottom: "0", opacity: 1 }}
-				>
+				<div ref={drawerPlaceholder} className="absolute bottom-0 w-full ">
 					<DrawerTrigger
 						className={`flex justify-center w-full h-[50px] align-bottom rounded-t-[10px] bg-background border border-b-0  transition-all `}
 						onTouchStart={() => setIsDrawerOpen(!isDrawerOpen)}
@@ -135,9 +145,9 @@ const SongCard = () => {
 						{/* <div className={`transition-all   ${isDrawerOpen ? "opacity-0" : "opacity-100"}`}>test</div> */}
 						{/* <div className="w-full bg-red-400" onClick={() => test?.current}>test</div> */}
 					</DrawerTrigger>
-				</motion.div>
-				<DrawerContent>
-					<div className="w-full max-w-sm mx-auto">
+				</div>
+				<DrawerContent ref={drawerReal}>
+					<div className="w-full max-w-sm mx-auto ">
 						<DrawerHeader>
 							<div className="flex w-full space-x-5 text-left">
 								<div className="w-24 h-24">
