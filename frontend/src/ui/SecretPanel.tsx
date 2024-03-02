@@ -71,7 +71,7 @@ export const SecretPanel = () => {
 	];
 
 	return (
-		<div className="h-screen relative w-full bg-neutral-950  overflow-hidden rounded-md">
+		<div className="h-screen relative w-full bg-gray-950  overflow-hidden rounded-md">
 			<div className="w-full absolute inset-0 h-screen">
 				<SparklesCore
 					id="sparkles"
@@ -126,13 +126,16 @@ export const SecretPanel = () => {
 };
 
 const TabsSettings = () => {
+	const tabClassName =
+		"bw-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-opacity-50 bg-gradient-to-br from-slate-800 to-slate-900";
 	const tabs = [
 		{
 			title: "Playback",
 			value: "playback",
 			content: (
-				<div className="bw-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-opacity-50 bg-gradient-to-br from-neutral-800 to-slate-900">
-					<h1>Playback</h1>
+				<div className={tabClassName}>
+					{/* <h1>Playback</h1> */}
+					<PlaybackControls />
 				</div>
 			),
 		},
@@ -140,8 +143,8 @@ const TabsSettings = () => {
 			title: "Volume",
 			value: "volume",
 			content: (
-				<div className="bw-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-opacity-50 bg-gradient-to-br  from-neutral-800 to-slate-900">
-					<h1>Volume</h1>
+				<div className={tabClassName}>
+					<VolumeControls />
 				</div>
 			),
 		},
@@ -149,77 +152,89 @@ const TabsSettings = () => {
 			title: "General",
 			value: "general",
 			content: (
-				<div className="bw-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-opacity-50 bg-gradient-to-br from-neutral-800 to-slate-900">
-					<h1>General</h1>
+				<div className={tabClassName}>
+					<GeneralControls />
 				</div>
 			),
 		},
 	];
 
 	return (
-		<div className="h-[40rem] md:h-[40rem]  [perspective:1000px] relative b flex flex-col max-w-5xl mx-auto w-full items-center justify-center my-5 ">
+		<div className=" h-[40rem]  [perspective:1000px] relative  max-w-5xl mx-auto w-full items-center justify-center my-5 ">
 			<Tabs
 				tabs={tabs}
 				containerClassName="bg-opacity-50 justify-center"
 				contentClassName="bg-opacity-50"
+				activeTabClassName="dark:bg-slate-800"
+				// tabClassName="bg-slate-800"
 				// tabClassName="justify-content-center flex"
 			/>
 		</div>
 	);
 };
-const VolumeSlider = () => {
-	// const { isLoading, error, data, isError } = useQuery(["getVolume", newVolume], getVolume, {})
-	const [volume, setVolume] = useState(0);
-	const [newVolume, setNewVolume] = useState(0);
-	const debouncedVolume = useDebouncedCallback(
-		(volume) => {
-			sendVolumeToBackend(volume);
-		},
-		1000,
-		{ leading: true },
-	);
 
-	const { data: getVolumeData } = useQuery(["getVolume", volume], getVolume, {
-		refetchInterval: 5000,
-	});
-
-	useEffect(() => {
-		if (getVolumeData) {
-			setVolume(getVolumeData);
-			setNewVolume(getVolumeData);
-		}
-	}, [getVolumeData]);
-
-	useEffect(() => {
-		if (newVolume !== volume) {
-			debouncedVolume(newVolume);
-		}
-	}, [newVolume]);
-
-	const rainbowColor = (value: number) => {
-		const hue = (value / 100) * 360;
-		return `hsl(${hue}, 100%, 50%)`;
-	};
-
-	return (
-		<div className="mt-16 text-center ">
-			<p className="mb-4 text-2xl">🔇 Volume Control 🔊</p>
-			<div className="relative flex items-center justify-center gap-2 ">
-				<span className="text-lg">🔇</span>
-				<input
-					className="h-4 rounded-lg appearance-none w-96"
-					type="range"
-					min="0"
-					max="100"
-					step="1"
-					value={newVolume}
-					onChange={(e) => setNewVolume(parseInt(e.target.value))}
-					style={{
-						background: `linear-gradient(to right, ${rainbowColor(15)} 0%, ${rainbowColor(newVolume)} 100%)`,
-					}}
-				/>
-				<span className="text-lg">{newVolume}</span>
-			</div>
-		</div>
-	);
+const PlaybackControls = () => {
+	return <h1>Those are controls</h1>;
 };
+
+const VolumeControls = () => {
+	return <h1>Volume</h1>;
+};
+const GeneralControls = () => {
+	return <h1>General</h1>;
+};
+// const VolumeSlider = () => {
+// 	// const { isLoading, error, data, isError } = useQuery(["getVolume", newVolume], getVolume, {})
+// 	const [volume, setVolume] = useState(0);
+// 	const [newVolume, setNewVolume] = useState(0);
+// 	const debouncedVolume = useDebouncedCallback(
+// 		(volume) => {
+// 			sendVolumeToBackend(volume);
+// 		},
+// 		1000,
+// 		{ leading: true },
+// 	);
+
+// 		refetchInterval: 5000,
+// 	});
+
+// 	useEffect(() => {
+// 		if (getVolumeData) {
+// 			setVolume(getVolumeData);
+// 			setNewVolume(getVolumeData);
+// 		}
+// 	}, [getVolumeData]);
+
+// 	useEffect(() => {
+// 		if (newVolume !== volume) {
+// 			debouncedVolume(newVolume);
+// 		}
+// 	}, [newVolume]);
+
+// 	const rainbowColor = (value: number) => {
+// 		const hue = (value / 100) * 360;
+// 		return `hsl(${hue}, 100%, 50%)`;
+// 	};
+
+// 	return (
+// 		<div className="mt-16 text-center ">
+// 			<p className="mb-4 text-2xl">🔇 Volume Control 🔊</p>
+// 			<div className="relative flex items-center justify-center gap-2 ">
+// 				<span className="text-lg">🔇</span>
+// 				<input
+// 					className="h-4 rounded-lg appearance-none w-96"
+// 					type="range"
+// 					min="0"
+// 					max="100"
+// 					step="1"
+// 					value={newVolume}
+// 					onChange={(e) => setNewVolume(parseInt(e.target.value))}
+// 					style={{
+// 						background: `linear-gradient(to right, ${rainbowColor(15)} 0%, ${rainbowColor(newVolume)} 100%)`,
+// 					}}
+// 				/>
+// 				<span className="text-lg">{newVolume}</span>
+// 			</div>
+// 		</div>
+// 	);
+// };
