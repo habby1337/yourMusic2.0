@@ -1,15 +1,18 @@
 import { Card } from "@/components/ui/card";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { API_URL } from "@/helpers/endpoints";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Artist } from "@/helpers/types";
 import { Progress } from "@/components/ui/progress";
+import { ColorExtractor } from "react-color-extractor";
+
 
 const SongPlayer = () => {
 	const [showPlayer, setShowPlayer] = useState(true);
 	const [songProgress, setSongProgress] = useState(0);
+	const [progressBarColor, setBarColor] = useState<string | undefined>(undefined);
 	const [scope, animate] = useAnimate();
 	const { data, isLoading } = useQuery(
 		"getSong",
@@ -23,8 +26,8 @@ const SongPlayer = () => {
 
 	useEffect(() => {
 		if (!data?.is_playing) return;
-		if (!showPlayer) animate(scope.current, { x: 0, y: 70, display: "block", opacity: 0.8 });
-		else animate(scope.current, { x: 0, y: 0, display: "block", opacity: 1 });
+		if (!showPlayer) animate(scope.current, { x: 0, y: 70, });
+		else animate(scope.current, { x: 0, y: 0 });
 	}, [showPlayer]);
 	// 10500
 	useEffect(() => {
@@ -73,12 +76,12 @@ const SongPlayer = () => {
 			{isPlaying && (
 				<motion.div
 					// animate sliding from bottom to top
-					initial={{ bottom: "-5%", opacity: 0 }}
-					animate={{ bottom: 0, display: "block", opacity: 1 }}
+					initial={{ bottom: "-35%"  }}
+					animate={{ bottom: 0  }}
 					transition={{ duration: 0.3 }}
-					exit={{ bottom: "-5%", opacity: 0 }}
+					exit={{ bottom: "-35%"  }}
 					ref={scope}
-					className="sticky bottom-0 left-0 right-0 w-11/12 mx-auto transform shadow-sm lg:w-2/5 rounded-xl"
+					className="absolute bottom-0 left-0 right-0 w-11/12 mx-auto transform shadow-sm lg:w-2/5 rounded-xl"
 				>
 					<Card
 						className="text-white border-0 bg-neutral-800 rounded-xl"
@@ -93,13 +96,19 @@ const SongPlayer = () => {
 								<div className="flex items-center gap-5">
 									{/* if isPlaying true animate the image */}
 									<a href={spotifyUrl} target="_blank">
-										<motion.img
+										<motion.div
+
+											animate={{ rotate: isPlaying ? 360 : 0 }}
+											transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+										>
+										<ColorExtractor getColors={(colors: SetStateAction<string | undefined>[]) => setBarColor(colors[0])} >
+										<img
 											src={albumImage}
 											alt=""
 											className="w-12 h-12 rounded-full"
-											animate={{ rotate: isPlaying ? 360 : 0 }}
-											transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
 										/>
+										</ColorExtractor>
+</motion.div>
 									</a>
 									{/* <img src={albumImage} alt="" className="w-12 h-12 rounded-full"  /> */}
 									<div>
@@ -110,16 +119,13 @@ const SongPlayer = () => {
 									</div>
 								</div>
 							</div>
+							<div className="relative mt-3">
+							</div>
 							{/* timeslider */}
 							<div className="relative mt-3">
-								<div className="absolute w-full h-1 rounded-full bg-neutral-700"></div>
-								<div
-									className="absolute w-full h-1 bg-white rounded-full mix-blend-difference"
-									style={{ width: `${songProgress}%` }}
-								></div>
-								<Progress value={songProgress} />
-							</div>
-							<div className="flex items-center justify-between mt-4">
+								<Progress value={songProgress} max={100} barColor={progressBarColor} barHeight={5} />
+								</div>
+							<div className="flex items-center justify-between mt-1">
 								<p className="text-sm font-bold mix-blend-difference">
 									{formatTime((songProgress * data.item.duration_ms) / 100)}
 								</p>

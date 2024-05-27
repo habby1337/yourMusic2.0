@@ -5,11 +5,12 @@ import { useQuery } from "react-query";
 import { ResultTrackItem, ResultTrackListSkeleton } from "./Search";
 import { AnimatePresence, motion } from "framer-motion";
 
-const SongRecommendation = ({ limit }: { limit: number }) => {
-	const fetchSongsRecommendation = async (): Promise<SuccessRecommendationsResponse> => {
-		const response = await fetch(`${API_URL}/getRecommendations.php?limit=${limit}`);
 
-		return response.json() as Promise<SuccessRecommendationsResponse>;
+const SongRecommendation = ({ limit }: { limit: number }) => {
+	const fetchSongsRecommendation = async ()  => {
+		const response = await fetch(`${API_URL}/getRecommendations.php?limit=${limit}`);
+		return response.json();
+	
 	};
 
 	const {
@@ -28,8 +29,22 @@ const SongRecommendation = ({ limit }: { limit: number }) => {
 	if (isLoading) {
 		return <ResultTrackListSkeleton number={10} />;
 	}
+	
+	
+ if (recommendationResponse?.code) {
+	return (
+		<div className="flex items-center justify-center h-full p-10 space-x-2 text-neutral-400">
+			<HeartCrack size={20} />
+			<p className="text "> {recommendationResponse.message}</p>
+			<HeartCrack size={20} />
+		</div>
+	);
+	
+ }	
 
-	if (!recommendationResponse || isError) {
+	
+
+	if (recommendationResponse?.tracks === undefined || isError || recommendationResponse?.code ) {
 		return (
 			<div className="flex items-center justify-center h-full p-5 space-x-2 text-neutral-400">
 				<HeartCrack size={20} />
@@ -53,6 +68,7 @@ const SongRecommendation = ({ limit }: { limit: number }) => {
 export default SongRecommendation;
 
 const SuggestionsCards = ({ suggestions }: { suggestions: SuccessRecommendationsResponse["tracks"] }) => {
+ console.log(suggestions)	
 	return (
 		<AnimatePresence>
 			<motion.div

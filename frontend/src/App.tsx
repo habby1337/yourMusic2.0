@@ -3,9 +3,9 @@ import "./App.css";
 import Navigation from "./ui/Navigation";
 import SearchForm from "./ui/Search";
 import Discover from "./ui/Discover";
-// import SongPlayer from "./ui/SongPlayer";
+import SongPlayer from "./ui/SongPlayer";
 // import Suggestions from "./ui/Suggestions";
-import SongDrawer from "./ui/SongDrawer";
+// import SongDrawer from "./ui/SongDrawer";
 import { ThemeProvider } from "./components/theme-provider";
 import SongRecommendation from "./ui/SongRecommendation";
 
@@ -13,7 +13,7 @@ function App() {
 	const LIMIT = 30;
 	return (
 		<ThemeProvider defaultTheme="light" storageKey="ym-ui-theme">
-			<div className="w-screen h-full">
+			<div className="relative w-screen h-screen overflow-y-clip">
 				<div className="p-2 overflow-x-hidden">
 					<Navigation />
 					<SearchForm />
@@ -22,9 +22,10 @@ function App() {
 					<SongRecommendation limit={LIMIT} />
 				</div>
 
-				{/* <SongPlayer /> */}
+				<SongPlayer />
 
-				<SongDrawer />
+				{/* <SongDrawer /> */}
+
 			</div>
 		</ThemeProvider>
 	);

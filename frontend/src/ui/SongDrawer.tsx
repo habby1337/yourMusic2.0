@@ -73,8 +73,8 @@ const SongCard = () => {
 	}, [clicksOnImage]);
 
 	useEffect(() => {
-		if (isLoading || songData?.is_playing === false) return;
-		setSongProgress((songData?.progress_ms / songData?.item?.duration_ms) * 100 || 0);
+		if (isLoading || songData?.is_playing === false || songData === undefined) return;
+		setSongProgress((songData.progress_ms / songData.item.duration_ms) * 100 || 0);
 	}, [songData]);
 
 	useEffect(() => {
