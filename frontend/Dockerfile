@@ -7,7 +7,7 @@ ENV VITE_API_URL=$VITE_API_URL
 
 # RUN npm install -g pnpm
 
-COPY . /react
+COPY . ./react
 WORKDIR /react
 
 FROM base AS prod-deps
