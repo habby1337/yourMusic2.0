@@ -56,5 +56,5 @@ jobs:
             cd /root/yourMusic2.0
             docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:backend-latest
             docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:frontend-latest
-            docker compose down yourMusic-Frontend-sp yourMusic-Backend-sp || true
-            docker compose up --build yourMusic-Frontend-sp yourMusic-Backend-sp || true
+            docker compose down frontend-sp backend-sp || true
+            docker compose up --build frontend-sp backend-sp || true
