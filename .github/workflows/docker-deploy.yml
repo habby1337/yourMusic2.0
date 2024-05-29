@@ -47,14 +47,13 @@ jobs:
          run: sudo apt-get install -y openssh-client
 
        - name: Deploy to VPS
-         env:
-           SSH_PRIVATE_KEY: '${{ secrets.SSH_PRIVATE_KEY }}'
-           VPS_HOST: ${{ secrets.VPS_HOST }}
-           VPS_USER: ${{ secrets.VPS_USER }}
-         run: |
-           ssh -o StrictHostKeyChecking=no -i "${{ secrets.SSH_PRIVATE_KEY }}" "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" << 'EOF'
-           cd /root/yourMusic2.0
-           docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY  }}:latest
-           docker compose down yourMusic-Frontend-sp yourMusic-Backend-sp || true
-           docker compose up --build yourMusic-Frontend-sp yourMusic-Backend-sp || true
-           EOF
+         uses: appleboy/ssh-action@v1.0.3
+         with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /root/yourMusic2.0
+            docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
+            docker compose down yourMusic-Frontend-sp yourMusic-Backend-sp || true
+            docker compose up --build yourMusic-Frontend-sp yourMusic-Backend-sp || true
