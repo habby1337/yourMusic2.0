@@ -7,8 +7,8 @@ ENV VITE_API_URL=$VITE_API_URL
 
 # RUN npm install -g pnpm
 
-COPY . /react
-WORKDIR /react
+# COPY . /react
+# WORKDIR /react
 
 FROM base AS prod-deps
 RUN npm install --production --frozen-lockfile --force
