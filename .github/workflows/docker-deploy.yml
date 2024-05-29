@@ -48,11 +48,11 @@ jobs:
 
        - name: Deploy to VPS
          env:
-           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+           SSH_PRIVATE_KEY: '${{ secrets.SSH_PRIVATE_KEY }}'
            VPS_HOST: ${{ secrets.VPS_HOST }}
            VPS_USER: ${{ secrets.VPS_USER }}
          run: |
-           ssh -o StrictHostKeyChecking=no -i "$SSH_PRIVATE_KEY" "$VPS_USER@$VPS_HOST" << 'EOF'
+           ssh -o StrictHostKeyChecking=no -i "${{ secrets.SSH_PRIVATE_KEY }}" "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" << 'EOF'
            cd /root/yourMusic2.0
            docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY  }}:latest
            docker compose down yourMusic-Frontend-sp yourMusic-Backend-sp || true
