@@ -44,7 +44,7 @@ const SongRecommendation = ({ limit }: { limit: number }) => {
 
 	
 
-	if (recommendationResponse?.tracks === undefined || isError || recommendationResponse?.code ) {
+	if (recommendationResponse?.tracks === undefined || isError  ) {
 		return (
 			<div className="flex items-center justify-center h-full p-5 space-x-2 text-neutral-400">
 				<HeartCrack size={20} />
