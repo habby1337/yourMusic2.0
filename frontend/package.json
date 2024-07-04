@@ -17,6 +17,8 @@
 		"@radix-ui/react-progress": "^1.0.3",
 		"@radix-ui/react-separator": "^1.0.3",
 		"@radix-ui/react-slot": "^1.0.2",
+		"@sentry/react": "^8.14.0",
+		"@sentry/vite-plugin": "^2.20.1",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.0.0",
 		"framer-motion": "^10.16.5",
