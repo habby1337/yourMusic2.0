@@ -58,4 +58,5 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:backend-latest
             docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:frontend-latest
             docker compose down frontend_sp backend_sp || true
-            docker compose up --build frontend_sp backend_sp -d || true
+            docker compose build frontend_sp backend_sp --no-cache
+            docker compose up frontend_sp backend_sp -d || true
