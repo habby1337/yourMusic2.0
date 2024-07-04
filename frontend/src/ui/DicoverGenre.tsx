@@ -74,7 +74,6 @@ const DiscoverGenreSection = ({ genre }: { genre: string }) => {
 	}
 
 	const convertToTrackArray = (data: PlaylistSearchResult) => {
-		console.log("THIS IS THE DATA", data);
 		const trackArray: Track[] = [];
 
 		data?.items.map((item: PlaylistItem) => {
@@ -84,7 +83,6 @@ const DiscoverGenreSection = ({ genre }: { genre: string }) => {
 		return trackArray;
 	};
 
-	console.log("Converted");
 
 	return (
 		<div className="overflow-y-scroll h-[72vh]">

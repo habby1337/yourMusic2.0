@@ -68,7 +68,6 @@ const SongRecommendation = ({ limit }: { limit: number }) => {
 export default SongRecommendation;
 
 const SuggestionsCards = ({ suggestions }: { suggestions: SuccessRecommendationsResponse["tracks"] }) => {
- console.log(suggestions)	
 	return (
 		<AnimatePresence>
 			<motion.div
